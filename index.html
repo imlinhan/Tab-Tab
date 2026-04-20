@@ -95,81 +95,15 @@
 
   </div>
 
-  <!-- Full Mode Widgets -->
-  <div class="widgets-grid full-only">
+  <!-- Widgets Panel Trigger -->
+  <button class="widgets-fab" id="widgetsPanelBtn" title="Widgets">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+  </button>
 
-    <!-- Quote -->
-    <div class="widget glass-card widget-quote">
-      <div class="widget-title">Daily Quote</div>
-      <div id="quoteText" class="quote-text"></div>
-      <div id="quoteAuthor" class="quote-author"></div>
-    </div>
-
-    <!-- Pomodoro -->
-    <div class="widget glass-card widget-pomodoro">
-      <div class="widget-title">Pomodoro</div>
-      <div class="pomodoro-display">
-        <span id="pomodoroLabel" class="pomodoro-label">Focus</span>
-        <span id="pomodoroTime" class="pomodoro-time">25:00</span>
-      </div>
-      <div class="pomodoro-controls">
-        <button class="btn btn-accent" id="pomodoroToggle">Start</button>
-        <button class="btn" id="pomodoroReset">Reset</button>
-      </div>
-    </div>
-
-    <!-- Todo -->
-    <div class="widget glass-card widget-todo">
-      <div class="widget-title">Tasks</div>
-      <input type="text" class="todo-input" id="todoInput" placeholder="Add a task...">
-      <div id="todoEmpty" class="todo-empty" style="display:none">No tasks yet.</div>
-      <div id="todoList" class="todo-list"></div>
-    </div>
-
-    <!-- Notes -->
-    <div class="widget glass-card widget-notes">
-      <div class="widget-title">Quick Notes</div>
-      <textarea class="notes-area" id="notesArea" placeholder="Jot down thoughts..."></textarea>
-    </div>
-
-    <!-- Stats -->
-    <div class="widget glass-card widget-stats" id="statsWidget">
-      <div class="widget-title">Tab Stats</div>
-      <div class="stats-numbers">
-        <div class="stats-item">
-          <span class="stats-value" id="statsTotalClosed">0</span>
-          <span class="stats-label">Closed</span>
-        </div>
-        <div class="stats-item">
-          <span class="stats-value" id="statsTotalSaved">0</span>
-          <span class="stats-label">Saved</span>
-        </div>
-      </div>
-      <div class="stats-chart" id="statsChart"></div>
-    </div>
-
-    <!-- Screen Time -->
-    <div class="widget glass-card widget-screentime" id="screenTimeWidget">
-      <div class="widget-title">Screen Time</div>
-      <div class="stats-numbers">
-        <div class="stats-item">
-          <span class="stats-value" id="screenTimeToday">0m</span>
-          <span class="stats-label">Today</span>
-        </div>
-        <div class="stats-item">
-          <span class="stats-value" id="screenTimeWeek">0m</span>
-          <span class="stats-label">This week</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Hibernated tabs -->
-    <div class="widget glass-card widget-hibernate">
-      <div class="widget-title">Saved tabs</div>
-      <div id="hibernateEmpty" class="todo-empty">No saved tab groups.</div>
-      <div id="hibernateList"></div>
-    </div>
-
+  <!-- Footer Quote -->
+  <div class="footer-quote">
+    <span id="quoteText" class="footer-quote-text"></span>
+    <span id="quoteAuthor" class="footer-quote-author"></span>
   </div>
 
   <!-- Footer -->
@@ -177,7 +111,7 @@
     <div class="footer-stats">
       <div class="stat">
         <div class="stat-num" id="statTabs">&mdash;</div>
-        <div class="stat-label">Open tabs</div>
+        <div class="stat-label" data-i18n="stats_open_tabs">Open tabs</div>
       </div>
     </div>
     <div class="footer-brand">Tab-Tab</div>
@@ -195,6 +129,86 @@
     </button>
   </div>
   <div class="settings-body" id="settingsBody"></div>
+</div>
+
+<!-- Widgets Panel -->
+<div id="widgetsPanelOverlay" class="widgets-panel-overlay"></div>
+<div id="widgetsPanel" class="widgets-panel">
+  <div class="widgets-panel-header">
+    <button class="widgets-panel-close" id="widgetsPanelClose">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="widgets-panel-body">
+    <div class="widgets-grid">
+
+      <!-- Pomodoro -->
+      <div class="widget glass-card widget-pomodoro">
+        <div class="widget-title">Pomodoro</div>
+        <div class="pomodoro-display">
+          <span id="pomodoroLabel" class="pomodoro-label">Focus</span>
+          <span id="pomodoroTime" class="pomodoro-time">25:00</span>
+        </div>
+        <div class="pomodoro-controls">
+          <button class="btn btn-accent" id="pomodoroToggle">Start</button>
+          <button class="btn" id="pomodoroReset">Reset</button>
+        </div>
+      </div>
+
+      <!-- Todo -->
+      <div class="widget glass-card widget-todo">
+        <div class="widget-title">Tasks</div>
+        <input type="text" class="todo-input" id="todoInput" placeholder="Add a task...">
+        <div id="todoEmpty" class="todo-empty" style="display:none">No tasks yet.</div>
+        <div id="todoList" class="todo-list"></div>
+      </div>
+
+      <!-- Notes -->
+      <div class="widget glass-card widget-notes">
+        <div class="widget-title">Quick Notes</div>
+        <textarea class="notes-area" id="notesArea" placeholder="Jot down thoughts..."></textarea>
+      </div>
+
+      <!-- Stats -->
+      <div class="widget glass-card widget-stats" id="statsWidget">
+        <div class="widget-title">Tab Stats</div>
+        <div class="stats-numbers">
+          <div class="stats-item">
+            <span class="stats-value" id="statsTotalClosed">0</span>
+            <span class="stats-label" data-i18n="stats_closed">Closed</span>
+          </div>
+          <div class="stats-item">
+            <span class="stats-value" id="statsTotalSaved">0</span>
+            <span class="stats-label" data-i18n="stats_saved">Saved</span>
+          </div>
+        </div>
+        <div class="stats-chart" id="statsChart"></div>
+      </div>
+
+      <!-- Screen Time -->
+      <div class="widget glass-card widget-screentime" id="screenTimeWidget">
+        <div class="widget-title">Screen Time</div>
+        <div class="stats-numbers">
+          <div class="stats-item">
+            <span class="stats-value" id="screenTimeToday">0m</span>
+            <span class="stats-label" data-i18n="stats_today">Today</span>
+          </div>
+          <div class="stats-item">
+            <span class="stats-value" id="screenTimeWeek">0m</span>
+            <span class="stats-label" data-i18n="stats_this_week">This week</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hibernated tabs -->
+      <div class="widget glass-card widget-hibernate">
+        <div class="widget-title">Saved tabs</div>
+        <div id="hibernateEmpty" class="todo-empty">No saved tab groups.</div>
+        <div id="hibernateList"></div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <!-- Toast -->

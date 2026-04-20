@@ -6,6 +6,10 @@ import { setMode, isFullMode } from './mode';
 import { type ThemeMode, getCurrentTheme, setTheme } from './theme';
 import { mergeAllWindows } from './windowmerge';
 import { getBlur, setBlur, reapplyBlur } from './glassblur';
+import { t } from './i18n';
+import { type LocalePref, getLocalePref, setLocale } from './locale';
+import { applyI18n } from './i18n';
+import { renderDashboard } from './render';
 
 function renderBody(): void {
   const body = document.getElementById('settingsBody');
@@ -16,6 +20,7 @@ function renderBody(): void {
   const motion = getMotion();
   const scheme = getCurrentScheme();
   const fullMode = isFullMode();
+  const locale = getLocalePref();
 
   function skinBtn(name: SkinName, label: string): string {
     return `<button data-action="set-skin" data-value="${name}" class="${skin === name ? 'active' : ''}">${label}</button>`;
@@ -23,6 +28,10 @@ function renderBody(): void {
 
   function themeBtn(mode: ThemeMode, label: string): string {
     return `<button data-action="set-theme" data-value="${mode}" class="${theme === mode ? 'active' : ''}">${label}</button>`;
+  }
+
+  function localeBtn(value: LocalePref, label: string): string {
+    return `<button data-action="set-locale" data-value="${value}" class="${locale === value ? 'active' : ''}">${label}</button>`;
   }
 
   function motionBtn(level: MotionLevel, label: string): string {
@@ -36,7 +45,7 @@ function renderBody(): void {
   const blur = getBlur();
   const blurRow = skin === 'glass' ? `
       <div class="settings-row">
-        <span class="settings-row-label">Blur</span>
+        <span class="settings-row-label">${t('settings_blur')}</span>
         <div class="settings-range-wrap">
           <input type="range" class="settings-range" id="settingsBlur" min="0" max="40" step="1" value="${blur}">
           <span class="settings-range-value" id="settingsBlurValue">${blur}px</span>
@@ -45,52 +54,60 @@ function renderBody(): void {
 
   body.innerHTML = `
     <div class="settings-section">
-      <div class="settings-section-title">Appearance</div>
+      <div class="settings-section-title">${t('settings_appearance')}</div>
       <div class="settings-row">
-        <span class="settings-row-label">Style</span>
+        <span class="settings-row-label">${t('settings_style')}</span>
         <div class="settings-btn-group">
-          ${skinBtn('minimal', 'Minimal')}
-          ${skinBtn('glass', 'Glass')}
-          ${skinBtn('material', 'Material')}
+          ${skinBtn('minimal', t('settings_skin_minimal'))}
+          ${skinBtn('glass', t('settings_skin_glass'))}
+          ${skinBtn('material', t('settings_skin_material'))}
         </div>
       </div>${blurRow}
       <div class="settings-row">
-        <span class="settings-row-label">Color</span>
+        <span class="settings-row-label">${t('settings_color')}</span>
         <div class="settings-colors">${colorDots}</div>
       </div>
       <div class="settings-row">
-        <span class="settings-row-label">Theme</span>
+        <span class="settings-row-label">${t('settings_theme')}</span>
         <div class="settings-btn-group">
-          ${themeBtn('system', 'System')}
-          ${themeBtn('light', 'Light')}
-          ${themeBtn('dark', 'Dark')}
+          ${themeBtn('system', t('settings_theme_system'))}
+          ${themeBtn('light', t('settings_theme_light'))}
+          ${themeBtn('dark', t('settings_theme_dark'))}
         </div>
       </div>
       <div class="settings-row">
-        <span class="settings-row-label">Animation</span>
+        <span class="settings-row-label">${t('settings_animation')}</span>
         <div class="settings-btn-group">
-          ${motionBtn('subtle', 'Subtle')}
-          ${motionBtn('smooth', 'Smooth')}
-          ${motionBtn('bouncy', 'Bouncy')}
+          ${motionBtn('subtle', t('settings_motion_subtle'))}
+          ${motionBtn('smooth', t('settings_motion_smooth'))}
+          ${motionBtn('bouncy', t('settings_motion_bouncy'))}
         </div>
       </div>
-    </div>
-
-    <div class="settings-section">
-      <div class="settings-section-title">Background</div>
       <div class="settings-row">
-        <span class="settings-row-label">Wallpaper</span>
+        <span class="settings-row-label">${t('settings_language')}</span>
         <div class="settings-btn-group">
-          <button data-action="upload-wallpaper">Upload</button>
-          <button data-action="clear-wallpaper">Clear</button>
+          ${localeBtn('system', t('settings_lang_system'))}
+          ${localeBtn('en', t('settings_lang_en'))}
+          ${localeBtn('zh_CN', t('settings_lang_zh_CN'))}
         </div>
       </div>
     </div>
 
     <div class="settings-section">
-      <div class="settings-section-title">Layout</div>
+      <div class="settings-section-title">${t('settings_background')}</div>
       <div class="settings-row">
-        <span class="settings-row-label">Dashboard mode</span>
+        <span class="settings-row-label">${t('settings_wallpaper')}</span>
+        <div class="settings-btn-group">
+          <button data-action="upload-wallpaper">${t('settings_wallpaper_upload')}</button>
+          <button data-action="clear-wallpaper">${t('settings_wallpaper_clear')}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-section-title">${t('settings_layout')}</div>
+      <div class="settings-row">
+        <span class="settings-row-label">${t('settings_dashboard_mode')}</span>
         <label class="settings-toggle">
           <input type="checkbox" id="settingsFullMode" ${fullMode ? 'checked' : ''}>
           <span class="settings-toggle-slider"></span>
@@ -99,10 +116,10 @@ function renderBody(): void {
     </div>
 
     <div class="settings-section">
-      <div class="settings-section-title">Actions</div>
-      <button class="settings-action-btn" data-action="merge-windows">Merge all windows</button>
-      <button class="settings-action-btn" data-action="export-settings">Export settings</button>
-      <button class="settings-action-btn danger" data-action="reset-all" id="resetAllBtn">Reset all settings</button>
+      <div class="settings-section-title">${t('settings_actions')}</div>
+      <button class="settings-action-btn" data-action="merge-windows">${t('settings_merge_windows')}</button>
+      <button class="settings-action-btn" data-action="export-settings">${t('settings_export')}</button>
+      <button class="settings-action-btn danger" data-action="reset-all" id="resetAllBtn">${t('settings_reset')}</button>
     </div>
   `;
 }
@@ -144,12 +161,12 @@ function handleResetAll(): void {
     return;
   }
 
-  btn.textContent = 'Confirm reset?';
+  btn.textContent = t('settings_reset_confirm');
   btn.dataset.confirm = 'true';
 
   if (resetTimeout) clearTimeout(resetTimeout);
   resetTimeout = setTimeout(() => {
-    btn.textContent = 'Reset all settings';
+    btn.textContent = t('settings_reset');
     delete btn.dataset.confirm;
   }, 3000);
 }
@@ -163,12 +180,17 @@ export function initSettings(): void {
     if (e.key === 'Escape') close();
   });
 
-  document.getElementById('settingsPanel')?.addEventListener('click', (e) => {
+  document.getElementById('settingsPanel')?.addEventListener('click', async (e) => {
     const el = (e.target as HTMLElement).closest<HTMLElement>('[data-action]');
     if (!el) return;
     const action = el.dataset.action;
 
-    if (action === 'set-skin') {
+    if (action === 'set-locale') {
+      await setLocale(el.dataset.value as LocalePref);
+      applyI18n();
+      await renderDashboard();
+      renderBody();
+    } else if (action === 'set-skin') {
       setSkin(el.dataset.value as SkinName);
       reapplyBlur();
       renderBody();

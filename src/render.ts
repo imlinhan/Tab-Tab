@@ -13,6 +13,7 @@ import {
   closeTabTabDups,
 } from './tabs';
 import { saveTabForLater, getSavedTabs, checkOffSavedTab, dismissSavedTab } from './storage';
+import { t, plural } from './i18n';
 import { recordClose, recordSave } from './stats';
 import { enableDragOnCards } from './dragdrop';
 import { hibernateGroup, refreshHibernateWidget } from './hibernate';
@@ -61,12 +62,12 @@ function checkAndShowEmptyState(): void {
           <path d="m4.5 12.75 6 6 9-13.5"/>
         </svg>
       </div>
-      <div class="empty-title">All clear</div>
-      <div class="empty-subtitle">No open tabs to manage.</div>
+      <div class="empty-title">${t('empty_all_clear')}</div>
+      <div class="empty-subtitle">${t('empty_no_tabs')}</div>
     </div>`;
 
   const countEl = document.getElementById('openTabsSectionCount');
-  if (countEl) countEl.textContent = '0 sites';
+  if (countEl) countEl.textContent = t('count_sites', '0', '');
 }
 
 function getUrlCounts(tabs: TabInfo[]): Record<string, number> {
@@ -98,10 +99,10 @@ function renderTabRow(
     ${favicon ? `<img class="tab-favicon" src="${escapeHtml(favicon)}" alt="">` : '<span class="tab-favicon-placeholder"></span>'}
     <span class="tab-title">${escapeHtml(label)}</span>${dupTag}
     <div class="tab-actions">
-      <button class="tab-btn tab-save" data-action="defer-single-tab" data-tab-url="${safeUrl}" data-tab-title="${safeTitle}" title="Save for later">
+      <button class="tab-btn tab-save" data-action="defer-single-tab" data-tab-url="${safeUrl}" data-tab-title="${safeTitle}" title="${t('tab_save_title')}">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
       </button>
-      <button class="tab-btn tab-close" data-action="close-single-tab" data-tab-url="${safeUrl}" title="Close tab">
+      <button class="tab-btn tab-close" data-action="close-single-tab" data-tab-url="${safeUrl}" title="${t('tab_close_title')}">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
@@ -138,26 +139,26 @@ function renderDomainCard(group: DomainGroup): string {
   const overflowHtml =
     hiddenTabs.length > 0
       ? `<div class="overflow-tabs" style="display:none">${hiddenTabs.map((tab) => renderTabRow(tab, urlCounts[tab.url], group.domain)).join('')}</div>
-         <div class="tab-row overflow-toggle" data-action="expand-chips"><span class="tab-title">+${hiddenTabs.length} more</span></div>`
+         <div class="tab-row overflow-toggle" data-action="expand-chips"><span class="tab-title">${t('tab_more', String(hiddenTabs.length))}</span></div>`
       : '';
 
   const dupBadge = hasDups
-    ? `<span class="badge badge-warn">${totalExtras} duplicate${totalExtras !== 1 ? 's' : ''}</span>`
+    ? `<span class="badge badge-warn">${t('badge_duplicates', String(totalExtras), plural(totalExtras))}</span>`
     : '';
 
   let actionsHtml = `
     <button class="card-btn card-btn-close" data-action="close-domain-tabs" data-domain-id="${stableId}">
-      Close all ${tabCount}
+      ${t('btn_close_all', String(tabCount))}
     </button>
     <button class="card-btn" data-action="hibernate-domain" data-domain-id="${stableId}">
-      Save &amp; close
+      ${t('btn_save_close')}
     </button>`;
 
   if (hasDups) {
     const dupUrlsEncoded = dupUrls.map(([url]) => encodeURIComponent(url)).join(',');
     actionsHtml += `
       <button class="card-btn" data-action="dedup-keep-one" data-dup-urls="${dupUrlsEncoded}">
-        Close ${totalExtras} duplicate${totalExtras !== 1 ? 's' : ''}
+        ${t('btn_close_duplicates', String(totalExtras), plural(totalExtras))}
       </button>`;
   }
 
@@ -220,6 +221,9 @@ async function renderDeferredColumn(): Promise<void> {
                   <span>${ago}</span>
                 </div>
               </div>
+              <button class="deferred-restore" data-action="restore-deferred" data-deferred-id="${item.id}" data-deferred-url="${escapeHtml(item.url)}" title="${t('btn_restore')}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              </button>
               <button class="deferred-dismiss" data-action="dismiss-deferred" data-deferred-id="${item.id}" title="Dismiss">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
@@ -274,6 +278,41 @@ function checkTabTabDupeBanner(): void {
   }
 }
 
+function groupTabsFingerprint(group: DomainGroup): string {
+  return group.tabs.map((t) => t.url + '\0' + t.title).join('|');
+}
+
+function patchOpenTabsCards(newGroups: DomainGroup[]): 'full' | 'patch' {
+  const openTabsMissionsEl = document.getElementById('openTabsMissions');
+  if (!openTabsMissionsEl) return 'full';
+
+  const oldMap = new Map(domainGroups.map((g) => [g.domain, g]));
+  const newMap = new Map(newGroups.map((g) => [g.domain, g]));
+
+  const added = newGroups.filter((g) => !oldMap.has(g.domain));
+  const removed = domainGroups.filter((g) => !newMap.has(g.domain));
+
+  // New group created or a group was fully removed → full re-render
+  if (added.length > 0 || removed.length > 0) return 'full';
+
+  // Only patch cards whose tab list changed
+  let patched = false;
+  for (const newGroup of newGroups) {
+    const oldGroup = oldMap.get(newGroup.domain)!;
+    if (groupTabsFingerprint(newGroup) === groupTabsFingerprint(oldGroup)) continue;
+
+    const stableId = 'domain-' + newGroup.domain.replace(/[^a-z0-9]/g, '-');
+    const card = openTabsMissionsEl.querySelector<HTMLElement>(`[data-domain-id="${stableId}"]`);
+    if (!card) return 'full';
+
+    card.outerHTML = renderDomainCard(newGroup);
+    patched = true;
+  }
+
+  if (patched) bindCardHover();
+  return 'patch';
+}
+
 export async function renderDashboard(): Promise<void> {
   const greetingEl = document.getElementById('greeting');
   const dateEl = document.getElementById('dateDisplay');
@@ -283,22 +322,27 @@ export async function renderDashboard(): Promise<void> {
   await fetchOpenTabs();
   const realTabs = getRealTabs();
 
-  domainGroups = groupTabsByDomain(realTabs);
+  const newGroups = groupTabsByDomain(realTabs);
 
   const openTabsSection = document.getElementById('openTabsSection');
   const openTabsMissionsEl = document.getElementById('openTabsMissions');
   const openTabsSectionCount = document.getElementById('openTabsSectionCount');
 
-  if (domainGroups.length > 0 && openTabsSection && openTabsMissionsEl && openTabsSectionCount) {
-    openTabsSectionCount.innerHTML = `${domainGroups.length} site${domainGroups.length !== 1 ? 's' : ''} &middot; <button class="card-btn card-btn-close" data-action="close-all-open-tabs" style="font-size:11px;padding:2px 8px;">Close all ${realTabs.length}</button>`;
-    openTabsMissionsEl.innerHTML = domainGroups.map(renderDomainCard).join('');
-    openTabsSection.style.display = 'block';
-    enableDragOnCards();
-    bindCardHover();
+  if (newGroups.length > 0 && openTabsSection && openTabsMissionsEl && openTabsSectionCount) {
+    openTabsSectionCount.innerHTML = `${t('count_sites', String(newGroups.length), plural(newGroups.length))} &middot; <button class="card-btn card-btn-close" data-action="close-all-open-tabs" style="font-size:11px;padding:2px 8px;">${t('btn_close_all', String(realTabs.length))}</button>`;
 
+    const strategy = domainGroups.length === 0 ? 'full' : patchOpenTabsCards(newGroups);
+    if (strategy === 'full') {
+      openTabsMissionsEl.innerHTML = newGroups.map(renderDomainCard).join('');
+      bindCardHover();
+    }
+
+    openTabsSection.style.display = 'block';
   } else if (openTabsSection) {
     openTabsSection.style.display = 'none';
   }
+
+  domainGroups = newGroups;
 
   const statTabs = document.getElementById('statTabs');
   if (statTabs) statTabs.textContent = String(getOpenTabs().length);
@@ -332,7 +376,7 @@ export function setupEventListeners(): void {
           banner.style.opacity = '1';
         }, 400);
       }
-      showToast('Closed extra Tab-Tab pages');
+      showToast(t('toast_closed_extra_pages'));
       return;
     }
 
@@ -375,7 +419,7 @@ export function setupEventListeners(): void {
       const statTabs = document.getElementById('statTabs');
       if (statTabs) statTabs.textContent = String(getOpenTabs().length);
       recordClose();
-      showToast('Tab closed');
+      showToast(t('toast_tab_closed'));
       return;
     }
 
@@ -396,7 +440,7 @@ export function setupEventListeners(): void {
         setTimeout(() => row.remove(), 200);
       }
       recordSave();
-      showToast('Saved for later');
+      showToast(t('toast_saved_later'));
       await renderDeferredColumn();
       return;
     }
@@ -436,6 +480,20 @@ export function setupEventListeners(): void {
       return;
     }
 
+    if (action === 'restore-deferred') {
+      const id = actionEl.dataset.deferredId;
+      const url = actionEl.dataset.deferredUrl;
+      if (!id || !url) return;
+      await chrome.tabs.create({ url });
+      await dismissSavedTab(id);
+      const target = actionEl.closest<HTMLElement>('.deferred-item');
+      if (target) {
+        target.classList.add('removing');
+        setTimeout(() => { target.remove(); renderDeferredColumn(); }, 300);
+      }
+      return;
+    }
+
     const card = actionEl.closest<HTMLElement>('.mission-card');
 
     if (action === 'close-domain-tabs') {
@@ -463,7 +521,7 @@ export function setupEventListeners(): void {
           ? 'Homepages'
           : group.label || friendlyDomain(group.domain);
       recordClose(urls.length);
-      showToast(`Closed ${urls.length} tab${urls.length !== 1 ? 's' : ''} from ${groupLabel}`);
+      showToast(t('toast_closed_tabs_from', String(urls.length), plural(urls.length), groupLabel));
 
       const statTabs = document.getElementById('statTabs');
       if (statTabs) statTabs.textContent = String(getOpenTabs().length);
@@ -498,7 +556,7 @@ export function setupEventListeners(): void {
       if (idx !== -1) domainGroups.splice(idx, 1);
 
       recordClose(urls.length);
-      showToast(`Saved and closed ${tabs.length} tab${tabs.length !== 1 ? 's' : ''} from ${groupLabel}`);
+      showToast(t('toast_saved_closed_tabs', String(tabs.length), plural(tabs.length), groupLabel));
       await refreshHibernateWidget();
 
       const statTabs2 = document.getElementById('statTabs');
@@ -534,7 +592,7 @@ export function setupEventListeners(): void {
         card.classList.remove('has-dups');
       }
 
-      showToast('Closed duplicates, kept one copy each');
+      showToast(t('toast_closed_duplicates'));
       return;
     }
 
@@ -552,7 +610,7 @@ export function setupEventListeners(): void {
       document
         .querySelectorAll<HTMLElement>('#openTabsMissions .mission-card')
         .forEach(animateCardOut);
-      showToast('All tabs closed.');
+      showToast(t('toast_all_tabs_closed'));
       return;
     }
   });
@@ -601,6 +659,23 @@ export function setupEventListeners(): void {
         (item.url || '').toLowerCase().includes(q),
     );
     archiveList.innerHTML =
-      results.map(renderArchiveItem).join('') || '<div style="font-size:12px;opacity:0.5;padding:8px 0">No results</div>';
+      results.map(renderArchiveItem).join('') || `<div style="font-size:12px;opacity:0.5;padding:8px 0">${t('archive_no_results')}</div>`;
+  });
+}
+
+export function setupTabListeners(): void {
+  let refreshTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  function scheduleRefresh(): void {
+    if (refreshTimeout) clearTimeout(refreshTimeout);
+    refreshTimeout = setTimeout(() => {
+      renderDashboard();
+    }, 400);
+  }
+
+  chrome.tabs.onCreated.addListener(scheduleRefresh);
+  chrome.tabs.onRemoved.addListener(scheduleRefresh);
+  chrome.tabs.onUpdated.addListener((_tabId, changeInfo) => {
+    if (changeInfo.url || changeInfo.title) scheduleRefresh();
   });
 }

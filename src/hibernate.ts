@@ -1,3 +1,5 @@
+import { t } from './i18n';
+
 interface HibernatedGroup {
   id: string;
   name: string;
@@ -34,11 +36,11 @@ function render(groups: HibernatedGroup[]): void {
     <div class="hibernate-group" data-hibernate-id="${g.id}">
       <div class="hibernate-header">
         <span class="hibernate-name">${escapeHtml(g.name)}</span>
-        <span class="hibernate-count">${g.tabs.length} tabs</span>
+        <span class="hibernate-count">${t('hibernate_count_tabs', String(g.tabs.length))}</span>
       </div>
       <div class="hibernate-actions">
-        <button class="card-btn" data-action="restore-hibernate" data-hibernate-id="${g.id}">Restore</button>
-        <button class="card-btn card-btn-close" data-action="delete-hibernate" data-hibernate-id="${g.id}">Delete</button>
+        <button class="card-btn" data-action="restore-hibernate" data-hibernate-id="${g.id}">${t('btn_restore')}</button>
+        <button class="card-btn card-btn-close" data-action="delete-hibernate" data-hibernate-id="${g.id}">${t('btn_delete')}</button>
       </div>
     </div>
   `).join('');

@@ -1,0 +1,121 @@
+{
+  "ext_name":                    { "message": "Tab-Tab" },
+  "ext_description":             { "message": "一款精美的新标签页扩展，帮你整理所有打开的标签页。" },
+  "ext_action_title":            { "message": "Tab-Tab" },
+
+  "greeting_morning":            { "message": "早上好" },
+  "greeting_afternoon":          { "message": "下午好" },
+  "greeting_evening":            { "message": "晚上好" },
+
+  "search_placeholder":          { "message": "用 $ENGINE$ 搜索...", "placeholders": { "engine": { "content": "$1" } } },
+
+  "section_open_tabs":           { "message": "打开的标签页" },
+  "section_saved_later":         { "message": "稍后阅读" },
+
+  "count_sites":                 { "message": "$N$ 个站点", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" } } },
+  "count_tabs":                  { "message": "$N$ 个标签页", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" } } },
+  "count_items":                 { "message": "$N$ 条", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" } } },
+
+  "btn_close_all":               { "message": "全部关闭 ($N$)", "placeholders": { "n": { "content": "$1" } } },
+  "btn_save_close":              { "message": "保存并关闭" },
+  "btn_close_duplicates":        { "message": "关闭 $N$ 个重复页面", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" } } },
+  "btn_restore":                 { "message": "恢复" },
+  "btn_delete":                  { "message": "删除" },
+
+  "badge_duplicates":            { "message": "$N$ 个重复", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" } } },
+
+  "tab_save_title":              { "message": "保存稍后阅读" },
+  "tab_close_title":             { "message": "关闭标签页" },
+  "tab_more":                    { "message": "还有 $N$ 个", "placeholders": { "n": { "content": "$1" } } },
+
+  "dup_banner_text":             { "message": "当前有 $N$ 个 Tab-Tab 页面打开，只保留这一个？", "placeholders": { "n": { "content": "$1" } } },
+  "btn_keep_only_this":          { "message": "只保留这一个" },
+
+  "empty_all_clear":             { "message": "清爽如初" },
+  "empty_no_tabs":               { "message": "没有需要管理的标签页。" },
+  "empty_nothing_saved":         { "message": "还没有保存任何内容。" },
+
+  "toast_tab_closed":            { "message": "标签页已关闭" },
+  "toast_saved_later":           { "message": "已保存稍后阅读" },
+  "toast_closed_duplicates":     { "message": "已关闭重复页面，每个保留一个" },
+  "toast_saved_closed_tabs":     { "message": "已保存并关闭 $GROUP$ 的 $N$ 个标签页", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" }, "group": { "content": "$3" } } },
+  "toast_closed_tabs_from":      { "message": "已关闭 $GROUP$ 的 $N$ 个标签页", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" }, "group": { "content": "$3" } } },
+  "toast_all_tabs_closed":       { "message": "所有标签页已关闭。" },
+  "toast_closed_extra_pages":    { "message": "已关闭多余的 Tab-Tab 页面" },
+
+  "archive_title":               { "message": "归档" },
+  "archive_search_placeholder":  { "message": "搜索已归档标签页..." },
+  "archive_no_results":          { "message": "无结果" },
+
+  "widget_daily_quote":          { "message": "每日一句" },
+  "widget_pomodoro":             { "message": "番茄钟" },
+  "widget_tasks":                { "message": "任务" },
+  "widget_quick_notes":          { "message": "快速笔记" },
+  "widget_tab_stats":            { "message": "标签页统计" },
+  "widget_screen_time":          { "message": "屏幕时间" },
+  "widget_saved_tabs":           { "message": "已保存标签页" },
+
+  "pomodoro_focus":              { "message": "专注" },
+  "pomodoro_break":              { "message": "休息" },
+  "pomodoro_start":              { "message": "开始" },
+  "pomodoro_pause":              { "message": "暂停" },
+  "pomodoro_reset":              { "message": "重置" },
+  "pomodoro_notif_break_title":  { "message": "休息时间！" },
+  "pomodoro_notif_break_body":   { "message": "休息 5 分钟吧。" },
+  "pomodoro_notif_work_title":   { "message": "专注时间！" },
+  "pomodoro_notif_work_body":    { "message": "继续专注 25 分钟。" },
+
+  "todo_placeholder":            { "message": "添加任务..." },
+  "todo_empty":                  { "message": "还没有任务。" },
+  "todo_delete_title":           { "message": "删除" },
+
+  "notes_placeholder":           { "message": "随手记下想法..." },
+
+  "stats_closed":                { "message": "已关闭" },
+  "stats_saved":                 { "message": "已保存" },
+  "stats_today":                 { "message": "今天" },
+  "stats_this_week":             { "message": "本周" },
+  "stats_open_tabs":             { "message": "打开的标签页" },
+
+  "hibernate_count_tabs":        { "message": "$N$ 个标签页", "placeholders": { "n": { "content": "$1" } } },
+  "hibernate_empty":             { "message": "还没有已保存的标签组。" },
+
+  "quicklink_add_title":         { "message": "添加链接" },
+  "quicklink_remove_title":      { "message": "移除" },
+  "quicklink_prompt_name":       { "message": "名称：" },
+  "quicklink_prompt_url":        { "message": "网址：" },
+
+  "filter_placeholder":          { "message": "筛选标签页..." },
+
+  "settings_title":              { "message": "设置" },
+  "settings_appearance":         { "message": "外观" },
+  "settings_background":         { "message": "背景" },
+  "settings_layout":             { "message": "布局" },
+  "settings_actions":            { "message": "操作" },
+  "settings_style":              { "message": "风格" },
+  "settings_blur":               { "message": "模糊度" },
+  "settings_color":              { "message": "颜色" },
+  "settings_theme":              { "message": "主题" },
+  "settings_animation":          { "message": "动画" },
+  "settings_wallpaper":          { "message": "壁纸" },
+  "settings_dashboard_mode":     { "message": "仪表盘模式" },
+  "settings_theme_system":       { "message": "跟随系统" },
+  "settings_theme_light":        { "message": "浅色" },
+  "settings_theme_dark":         { "message": "深色" },
+  "settings_motion_subtle":      { "message": "轻柔" },
+  "settings_motion_smooth":      { "message": "流畅" },
+  "settings_motion_bouncy":      { "message": "弹跳" },
+  "settings_skin_minimal":       { "message": "简约" },
+  "settings_skin_glass":         { "message": "玻璃" },
+  "settings_skin_material":      { "message": "Material" },
+  "settings_wallpaper_upload":   { "message": "上传" },
+  "settings_wallpaper_clear":    { "message": "清除" },
+  "settings_merge_windows":      { "message": "合并所有窗口" },
+  "settings_export":             { "message": "导出设置" },
+  "settings_reset":              { "message": "重置所有设置" },
+  "settings_reset_confirm":      { "message": "确认重置？" },
+
+  "footer_brand":                { "message": "Tab-Tab" },
+  "theme_toggle_title":          { "message": "切换主题" },
+  "settings_btn_title":          { "message": "设置" }
+}

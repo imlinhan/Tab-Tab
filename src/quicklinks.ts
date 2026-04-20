@@ -1,3 +1,5 @@
+import { t } from './i18n';
+
 export interface QuickLink {
   name: string;
   url: string;
@@ -51,11 +53,11 @@ function render(): void {
     return `<a class="quick-link" href="${escapeHtml(link.url)}" title="${escapeHtml(link.name)}">
       <span class="quick-link-letter" style="background:${color}">${getInitial(link.name)}</span>
       <span class="quick-link-name">${escapeHtml(link.name)}</span>
-      <button class="quick-link-remove" data-action="remove-quick-link" data-index="${i}" title="Remove">
+      <button class="quick-link-remove" data-action="remove-quick-link" data-index="${i}" title="${t('quicklink_remove_title')}">
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </a>`;
-  }).join('') + `<button class="quick-link quick-link-add" data-action="add-quick-link" title="Add link">
+  }).join('') + `<button class="quick-link quick-link-add" data-action="add-quick-link" title="${t('quicklink_add_title')}">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
   </button>`;
 }
@@ -81,9 +83,9 @@ export async function initQuickLinks(): Promise<void> {
 
     if (el.dataset.action === 'add-quick-link') {
       e.preventDefault();
-      const name = prompt('Name:');
+      const name = prompt(t('quicklink_prompt_name'));
       if (!name) return;
-      const url = prompt('URL:', 'https://');
+      const url = prompt(t('quicklink_prompt_url'), 'https://');
       if (!url) return;
       links.push({ name, url });
       await saveLinks();

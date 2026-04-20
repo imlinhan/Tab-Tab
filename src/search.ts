@@ -1,3 +1,5 @@
+import { t } from './i18n';
+
 interface SearchEngine {
   name: string;
   url: string;
@@ -48,7 +50,7 @@ export async function initSearch(): Promise<void> {
   }
 
   if (input) {
-    input.placeholder = `Search with ${ENGINES[currentEngineIndex].name}...`;
+    input.placeholder = t('search_placeholder', ENGINES[currentEngineIndex].name);
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         const query = input.value.trim();
@@ -71,7 +73,7 @@ async function cycleEngine(): Promise<void> {
     engineBtn.title = engine.name;
   }
   if (input) {
-    input.placeholder = `Search with ${engine.name}...`;
+    input.placeholder = t('search_placeholder', engine.name);
   }
 
   try {

@@ -1,3 +1,6 @@
+import { getMessage } from './locale';
+import { getLocalePref } from './locale';
+
 export const FRIENDLY_DOMAINS: Record<string, string> = {
   'github.com': 'GitHub',
   'www.github.com': 'GitHub',
@@ -197,13 +200,15 @@ export function smartTitle(title: string, url: string): string {
 
 export function getGreeting(): string {
   const hour = new Date().getHours();
-  if (hour < 12) return 'Good morning';
-  if (hour < 17) return 'Good afternoon';
-  return 'Good evening';
+  if (hour < 12) return getMessage('greeting_morning');
+  if (hour < 17) return getMessage('greeting_afternoon');
+  return getMessage('greeting_evening');
 }
 
 export function getDateDisplay(): string {
-  return new Date().toLocaleDateString(undefined, {
+  const pref = getLocalePref();
+  const locale = pref === 'zh_CN' ? 'zh-CN' : pref === 'en' ? 'en-US' : undefined;
+  return new Date().toLocaleDateString(locale, {
     weekday: 'long',
     year: 'numeric',
     month: 'long',

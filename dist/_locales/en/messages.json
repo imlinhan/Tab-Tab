@@ -1,0 +1,121 @@
+{
+  "ext_name":                    { "message": "Tab-Tab" },
+  "ext_description":             { "message": "A beautiful new tab page that organizes your open tabs." },
+  "ext_action_title":            { "message": "Tab-Tab" },
+
+  "greeting_morning":            { "message": "Good morning" },
+  "greeting_afternoon":          { "message": "Good afternoon" },
+  "greeting_evening":            { "message": "Good evening" },
+
+  "search_placeholder":          { "message": "Search with $ENGINE$...", "placeholders": { "engine": { "content": "$1" } } },
+
+  "section_open_tabs":           { "message": "Open tabs" },
+  "section_saved_later":         { "message": "Saved for later" },
+
+  "count_sites":                 { "message": "$N$ site$S$", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" } } },
+  "count_tabs":                  { "message": "$N$ tab$S$", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" } } },
+  "count_items":                 { "message": "$N$ item$S$", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" } } },
+
+  "btn_close_all":               { "message": "Close all $N$", "placeholders": { "n": { "content": "$1" } } },
+  "btn_save_close":              { "message": "Save & close" },
+  "btn_close_duplicates":        { "message": "Close $N$ duplicate$S$", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" } } },
+  "btn_restore":                 { "message": "Restore" },
+  "btn_delete":                  { "message": "Delete" },
+
+  "badge_duplicates":            { "message": "$N$ duplicate$S$", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" } } },
+
+  "tab_save_title":              { "message": "Save for later" },
+  "tab_close_title":             { "message": "Close tab" },
+  "tab_more":                    { "message": "+$N$ more", "placeholders": { "n": { "content": "$1" } } },
+
+  "dup_banner_text":             { "message": "$N$ copies of Tab-Tab are open. Keep only this one?", "placeholders": { "n": { "content": "$1" } } },
+  "btn_keep_only_this":          { "message": "Keep only this one" },
+
+  "empty_all_clear":             { "message": "All clear" },
+  "empty_no_tabs":               { "message": "No open tabs to manage." },
+  "empty_nothing_saved":         { "message": "Nothing saved yet." },
+
+  "toast_tab_closed":            { "message": "Tab closed" },
+  "toast_saved_later":           { "message": "Saved for later" },
+  "toast_closed_duplicates":     { "message": "Closed duplicates, kept one copy each" },
+  "toast_saved_closed_tabs":     { "message": "Saved and closed $N$ tab$S$ from $GROUP$", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" }, "group": { "content": "$3" } } },
+  "toast_closed_tabs_from":      { "message": "Closed $N$ tab$S$ from $GROUP$", "placeholders": { "n": { "content": "$1" }, "s": { "content": "$2" }, "group": { "content": "$3" } } },
+  "toast_all_tabs_closed":       { "message": "All tabs closed." },
+  "toast_closed_extra_pages":    { "message": "Closed extra Tab-Tab pages" },
+
+  "archive_title":               { "message": "Archive" },
+  "archive_search_placeholder":  { "message": "Search archived tabs..." },
+  "archive_no_results":          { "message": "No results" },
+
+  "widget_daily_quote":          { "message": "Daily Quote" },
+  "widget_pomodoro":             { "message": "Pomodoro" },
+  "widget_tasks":                { "message": "Tasks" },
+  "widget_quick_notes":          { "message": "Quick Notes" },
+  "widget_tab_stats":            { "message": "Tab Stats" },
+  "widget_screen_time":          { "message": "Screen Time" },
+  "widget_saved_tabs":           { "message": "Saved tabs" },
+
+  "pomodoro_focus":              { "message": "Focus" },
+  "pomodoro_break":              { "message": "Break" },
+  "pomodoro_start":              { "message": "Start" },
+  "pomodoro_pause":              { "message": "Pause" },
+  "pomodoro_reset":              { "message": "Reset" },
+  "pomodoro_notif_break_title":  { "message": "Break time!" },
+  "pomodoro_notif_break_body":   { "message": "Take a 5-minute break." },
+  "pomodoro_notif_work_title":   { "message": "Focus time!" },
+  "pomodoro_notif_work_body":    { "message": "Back to work for 25 minutes." },
+
+  "todo_placeholder":            { "message": "Add a task..." },
+  "todo_empty":                  { "message": "No tasks yet." },
+  "todo_delete_title":           { "message": "Delete" },
+
+  "notes_placeholder":           { "message": "Jot down thoughts..." },
+
+  "stats_closed":                { "message": "Closed" },
+  "stats_saved":                 { "message": "Saved" },
+  "stats_today":                 { "message": "Today" },
+  "stats_this_week":             { "message": "This week" },
+  "stats_open_tabs":             { "message": "Open tabs" },
+
+  "hibernate_count_tabs":        { "message": "$N$ tabs", "placeholders": { "n": { "content": "$1" } } },
+  "hibernate_empty":             { "message": "No saved tab groups." },
+
+  "quicklink_add_title":         { "message": "Add link" },
+  "quicklink_remove_title":      { "message": "Remove" },
+  "quicklink_prompt_name":       { "message": "Name:" },
+  "quicklink_prompt_url":        { "message": "URL:" },
+
+  "filter_placeholder":          { "message": "Filter tabs..." },
+
+  "settings_title":              { "message": "Settings" },
+  "settings_appearance":         { "message": "Appearance" },
+  "settings_background":         { "message": "Background" },
+  "settings_layout":             { "message": "Layout" },
+  "settings_actions":            { "message": "Actions" },
+  "settings_style":              { "message": "Style" },
+  "settings_blur":               { "message": "Blur" },
+  "settings_color":              { "message": "Color" },
+  "settings_theme":              { "message": "Theme" },
+  "settings_animation":          { "message": "Animation" },
+  "settings_wallpaper":          { "message": "Wallpaper" },
+  "settings_dashboard_mode":     { "message": "Dashboard mode" },
+  "settings_theme_system":       { "message": "System" },
+  "settings_theme_light":        { "message": "Light" },
+  "settings_theme_dark":         { "message": "Dark" },
+  "settings_motion_subtle":      { "message": "Subtle" },
+  "settings_motion_smooth":      { "message": "Smooth" },
+  "settings_motion_bouncy":      { "message": "Bouncy" },
+  "settings_skin_minimal":       { "message": "Minimal" },
+  "settings_skin_glass":         { "message": "Glass" },
+  "settings_skin_material":      { "message": "Material" },
+  "settings_wallpaper_upload":   { "message": "Upload" },
+  "settings_wallpaper_clear":    { "message": "Clear" },
+  "settings_merge_windows":      { "message": "Merge all windows" },
+  "settings_export":             { "message": "Export settings" },
+  "settings_reset":              { "message": "Reset all settings" },
+  "settings_reset_confirm":      { "message": "Confirm reset?" },
+
+  "footer_brand":                { "message": "Tab-Tab" },
+  "theme_toggle_title":          { "message": "Toggle theme" },
+  "settings_btn_title":          { "message": "Settings" }
+}

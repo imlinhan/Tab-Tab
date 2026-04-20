@@ -1,3 +1,5 @@
+import { t } from './i18n';
+
 let remaining = 25 * 60;
 let running = false;
 let timerId: number | undefined;
@@ -17,8 +19,8 @@ function updateDisplay(): void {
   const label = document.getElementById('pomodoroLabel');
   const btn = document.getElementById('pomodoroToggle');
   if (display) display.textContent = formatTime(remaining);
-  if (label) label.textContent = mode === 'work' ? 'Focus' : 'Break';
-  if (btn) btn.textContent = running ? 'Pause' : 'Start';
+  if (label) label.textContent = mode === 'work' ? t('pomodoro_focus') : t('pomodoro_break');
+  if (btn) btn.textContent = running ? t('pomodoro_pause') : t('pomodoro_start');
 }
 
 function tick(): void {
@@ -30,11 +32,11 @@ function tick(): void {
     if (mode === 'work') {
       mode = 'break';
       remaining = BREAK_DURATION;
-      notify('Break time!', 'Take a 5-minute break.');
+      notify(t('pomodoro_notif_break_title'), t('pomodoro_notif_break_body'));
     } else {
       mode = 'work';
       remaining = WORK_DURATION;
-      notify('Focus time!', 'Back to work for 25 minutes.');
+      notify(t('pomodoro_notif_work_title'), t('pomodoro_notif_work_body'));
     }
     updateDisplay();
     return;

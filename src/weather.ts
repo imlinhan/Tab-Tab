@@ -1,3 +1,5 @@
+import { getMessage } from './locale';
+
 interface WeatherData {
   temp: number;
   description: string;
@@ -37,13 +39,16 @@ async function fetchWeather(lat: number, lon: number): Promise<WeatherData | nul
     const code = current.weather_code as number;
     const temp = Math.round(current.temperature_2m as number);
 
-    const descriptions: Record<number, string> = {
-      0: 'Clear', 1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Overcast',
-      45: 'Foggy', 48: 'Freezing fog', 51: 'Light drizzle', 53: 'Drizzle',
-      55: 'Heavy drizzle', 61: 'Light rain', 63: 'Rain', 65: 'Heavy rain',
-      71: 'Light snow', 73: 'Snow', 75: 'Heavy snow', 80: 'Rain showers',
-      81: 'Rain showers', 82: 'Heavy rain showers', 95: 'Thunderstorm',
+    const descKeys: Record<number, string> = {
+      0: 'weather_clear', 1: 'weather_mainly_clear', 2: 'weather_partly_cloudy', 3: 'weather_overcast',
+      45: 'weather_foggy', 48: 'weather_freezing_fog', 51: 'weather_light_drizzle', 53: 'weather_drizzle',
+      55: 'weather_heavy_drizzle', 61: 'weather_light_rain', 63: 'weather_rain', 65: 'weather_heavy_rain',
+      71: 'weather_light_snow', 73: 'weather_snow', 75: 'weather_heavy_snow', 80: 'weather_rain_showers',
+      81: 'weather_rain_showers', 82: 'weather_heavy_rain_showers', 95: 'weather_thunderstorm',
     };
+    const descriptions: Record<number, string> = Object.fromEntries(
+      Object.entries(descKeys).map(([k, key]) => [k, getMessage(key)])
+    );
 
     const icons: Record<number, string> = {
       0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️', 45: '🌫️', 48: '🌫️',
