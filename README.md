@@ -2,7 +2,7 @@
 
 A beautiful Chrome new tab extension that turns every new tab into a clean command center for your open tabs.
 
-![Tab-Tab](public/icons/icon128.png)
+![Tab-Tab screenshot](screenshot/screenshot_1.png)
 
 ## Features
 
