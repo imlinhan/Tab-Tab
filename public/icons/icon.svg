@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+    <linearGradient id="tab1g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c6ff7"/>
+      <stop offset="100%" stop-color="#5b8af7"/>
+    </linearGradient>
+    <linearGradient id="tab2g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="round">
+      <rect width="128" height="128" rx="28" ry="28"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="128" height="128" rx="28" ry="28" fill="url(#bg)"/>
+
+  <!-- Subtle grid dots -->
+  <g opacity="0.07" fill="#ffffff">
+    <circle cx="24" cy="24" r="1.2"/><circle cx="44" cy="24" r="1.2"/><circle cx="64" cy="24" r="1.2"/><circle cx="84" cy="24" r="1.2"/><circle cx="104" cy="24" r="1.2"/>
+    <circle cx="24" cy="44" r="1.2"/><circle cx="44" cy="44" r="1.2"/><circle cx="64" cy="44" r="1.2"/><circle cx="84" cy="44" r="1.2"/><circle cx="104" cy="44" r="1.2"/>
+    <circle cx="24" cy="64" r="1.2"/><circle cx="44" cy="64" r="1.2"/><circle cx="64" cy="64" r="1.2"/><circle cx="84" cy="64" r="1.2"/><circle cx="104" cy="64" r="1.2"/>
+    <circle cx="24" cy="84" r="1.2"/><circle cx="44" cy="84" r="1.2"/><circle cx="64" cy="84" r="1.2"/><circle cx="84" cy="84" r="1.2"/><circle cx="104" cy="84" r="1.2"/>
+    <circle cx="24" cy="104" r="1.2"/><circle cx="44" cy="104" r="1.2"/><circle cx="64" cy="104" r="1.2"/><circle cx="84" cy="104" r="1.2"/><circle cx="104" cy="104" r="1.2"/>
+  </g>
+
+  <!-- Back tab (shifted right + down slightly) -->
+  <g filter="url(#glow)" opacity="0.85">
+    <rect x="38" y="44" width="62" height="42" rx="8" ry="8" fill="url(#tab2g)" opacity="0.5"/>
+    <rect x="38" y="36" width="28" height="12" rx="6" ry="6" fill="url(#tab2g)" opacity="0.5"/>
+  </g>
+
+  <!-- Front tab -->
+  <g filter="url(#glow)">
+    <rect x="22" y="52" width="62" height="42" rx="8" ry="8" fill="url(#tab1g)"/>
+    <rect x="22" y="44" width="28" height="12" rx="6" ry="6" fill="url(#tab1g)"/>
+  </g>
+
+  <!-- Content lines on front tab -->
+  <rect x="30" y="65" width="36" height="3" rx="1.5" fill="white" opacity="0.6"/>
+  <rect x="30" y="74" width="26" height="3" rx="1.5" fill="white" opacity="0.35"/>
+  <rect x="30" y="83" width="30" height="3" rx="1.5" fill="white" opacity="0.25"/>
+
+  <!-- Small close dot on tab bar -->
+  <circle cx="44" cy="50" r="2.5" fill="white" opacity="0.7"/>
+</svg>
