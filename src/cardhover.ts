@@ -1,39 +1,27 @@
-let currentCard: HTMLElement | null = null;
-let cachedTransform = '';
-let cachedShadow = '';
-
-function refreshCache(): void {
-  const cs = getComputedStyle(document.documentElement);
-  cachedTransform = cs.getPropertyValue('--card-hover-transform').trim();
-  cachedShadow = cs.getPropertyValue('--card-hover-shadow').trim();
-}
-
-function applyHover(card: HTMLElement): void {
-  card.style.transform = cachedTransform;
-  card.style.boxShadow = cachedShadow;
-}
-
-function clearHover(card: HTMLElement): void {
-  card.style.transform = '';
-  card.style.boxShadow = '';
-}
+let currentHovered: HTMLElement | null = null;
+let leaveTimer: ReturnType<typeof setTimeout> | null = null;
 
 export function bindCardHover(): void {
   const grid = document.getElementById('openTabsMissions');
   if (!grid) return;
-  refreshCache();
-  if (grid.dataset.hoverBound) return;
-  grid.dataset.hoverBound = '1';
 
-  grid.addEventListener('mouseover', (e) => {
-    const card = (e.target as HTMLElement).closest<HTMLElement>('.mission-card');
-    if (card === currentCard) return;
-    if (currentCard) clearHover(currentCard);
-    currentCard = card;
-    if (currentCard) applyHover(currentCard);
-  });
+  grid.querySelectorAll<HTMLElement>('.mission-card').forEach((card) => {
+    card.addEventListener('mouseenter', () => {
+      if (leaveTimer) { clearTimeout(leaveTimer); leaveTimer = null; }
+      if (currentHovered && currentHovered !== card) {
+        currentHovered.classList.remove('card-hovered');
+      }
+      currentHovered = card;
+      card.classList.add('card-hovered');
+    });
 
-  grid.addEventListener('mouseleave', () => {
-    if (currentCard) { clearHover(currentCard); currentCard = null; }
+    card.addEventListener('mouseleave', () => {
+      const leaving = card;
+      leaveTimer = setTimeout(() => {
+        leaving.classList.remove('card-hovered');
+        if (currentHovered === leaving) currentHovered = null;
+        leaveTimer = null;
+      }, 80);
+    });
   });
 }

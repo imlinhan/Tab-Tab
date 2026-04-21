@@ -1,3 +1,4 @@
+import Masonry from 'masonry-layout';
 import {
   type DomainGroup,
   type TabInfo,
@@ -30,6 +31,53 @@ import {
 } from './utils';
 
 let domainGroups: DomainGroup[] = [];
+let msnry: Masonry | null = null;
+
+const CARD_MIN_WIDTH = 260;
+const CARD_GUTTER = 20;
+
+function applyCardWidths(el: HTMLElement): void {
+  const containerWidth = el.clientWidth;
+  const cols = Math.max(1, Math.floor((containerWidth + CARD_GUTTER) / (CARD_MIN_WIDTH + CARD_GUTTER)));
+  const cardWidth = Math.floor((containerWidth - (cols - 1) * CARD_GUTTER) / cols);
+  const sizer = el.querySelector<HTMLElement>('.grid-sizer');
+  if (sizer) sizer.style.width = `${cardWidth}px`;
+  el.querySelectorAll<HTMLElement>('.mission-card').forEach((c) => {
+    c.style.width = `${cardWidth}px`;
+  });
+}
+
+function initMasonry(el: HTMLElement): void {
+  if (msnry) {
+    msnry.destroy?.();
+    msnry = null;
+  }
+  let sizer = el.querySelector<HTMLElement>('.grid-sizer');
+  if (!sizer) {
+    sizer = document.createElement('div');
+    sizer.className = 'grid-sizer';
+    el.prepend(sizer);
+  }
+  applyCardWidths(el);
+  msnry = new Masonry(el, {
+    itemSelector: '.mission-card',
+    columnWidth: '.grid-sizer',
+    gutter: CARD_GUTTER,
+    transitionDuration: 0,
+  });
+}
+
+function relayoutMasonry(): void {
+  msnry?.layout?.();
+}
+
+function showLoadingSkeleton(container: HTMLElement): void {
+  container.innerHTML = Array.from({ length: 6 }, () => '<div class="card-skeleton"></div>').join('');
+}
+
+function clearLoadingSkeleton(container: HTMLElement): void {
+  container.querySelectorAll('.card-skeleton').forEach((el) => el.remove());
+}
 
 function showToast(message: string): void {
   const toast = document.getElementById('toast');
@@ -45,7 +93,7 @@ function animateCardOut(card: HTMLElement): void {
   setTimeout(() => {
     card.remove();
     checkAndShowEmptyState();
-
+    relayoutMasonry();
   }, 300);
 }
 
@@ -309,7 +357,12 @@ function patchOpenTabsCards(newGroups: DomainGroup[]): 'full' | 'patch' {
     patched = true;
   }
 
-  if (patched) bindCardHover();
+  if (patched) {
+    applyCardWidths(openTabsMissionsEl);
+    msnry?.reloadItems?.();
+    msnry?.layout?.();
+    bindCardHover();
+  }
   return 'patch';
 }
 
@@ -319,25 +372,38 @@ export async function renderDashboard(): Promise<void> {
   if (greetingEl) greetingEl.textContent = getGreeting();
   if (dateEl) dateEl.textContent = getDateDisplay();
 
+  const openTabsSection = document.getElementById('openTabsSection');
+  const openTabsMissionsEl = document.getElementById('openTabsMissions');
+  const openTabsSectionCount = document.getElementById('openTabsSectionCount');
+
+  // Show skeleton on first load only
+  const isFirstLoad = domainGroups.length === 0;
+  if (isFirstLoad && openTabsSection && openTabsMissionsEl) {
+    openTabsSection.style.display = 'block';
+    showLoadingSkeleton(openTabsMissionsEl);
+  }
+
   await fetchOpenTabs();
   const realTabs = getRealTabs();
 
   const newGroups = groupTabsByDomain(realTabs);
 
-  const openTabsSection = document.getElementById('openTabsSection');
-  const openTabsMissionsEl = document.getElementById('openTabsMissions');
-  const openTabsSectionCount = document.getElementById('openTabsSectionCount');
-
   if (newGroups.length > 0 && openTabsSection && openTabsMissionsEl && openTabsSectionCount) {
     openTabsSectionCount.innerHTML = `${t('count_sites', String(newGroups.length), plural(newGroups.length))} &middot; <button class="card-btn card-btn-close" data-action="close-all-open-tabs" style="font-size:11px;padding:2px 8px;">${t('btn_close_all', String(realTabs.length))}</button>`;
 
-    const strategy = domainGroups.length === 0 ? 'full' : patchOpenTabsCards(newGroups);
-    if (strategy === 'full') {
-      openTabsMissionsEl.innerHTML = newGroups.map(renderDomainCard).join('');
-      bindCardHover();
-    }
-
     openTabsSection.style.display = 'block';
+
+    const strategy = isFirstLoad ? 'full' : patchOpenTabsCards(newGroups);
+    if (strategy === 'full') {
+      clearLoadingSkeleton(openTabsMissionsEl);
+      openTabsMissionsEl.innerHTML = newGroups.map(renderDomainCard).join('');
+      setTimeout(() => {
+        initMasonry(openTabsMissionsEl);
+        bindCardHover();
+      }, 0);
+    } else {
+      relayoutMasonry();
+    }
   } else if (openTabsSection) {
     openTabsSection.style.display = 'none';
   }
@@ -677,5 +743,14 @@ export function setupTabListeners(): void {
   chrome.tabs.onRemoved.addListener(scheduleRefresh);
   chrome.tabs.onUpdated.addListener((_tabId, changeInfo) => {
     if (changeInfo.url || changeInfo.title) scheduleRefresh();
+  });
+
+  let resizeTimer: ReturnType<typeof setTimeout> | null = null;
+  window.addEventListener('resize', () => {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const el = document.getElementById('openTabsMissions');
+      if (el && msnry) { applyCardWidths(el); msnry.layout?.(); }
+    }, 150);
   });
 }

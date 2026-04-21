@@ -12,5 +12,9 @@
     "@types/chrome": "^0.0.287",
     "typescript": "^5.7.3",
     "vite": "^6.3.2"
+  },
+  "dependencies": {
+    "@types/masonry-layout": "^4.2.8",
+    "masonry-layout": "^4.2.2"
   }
 }
