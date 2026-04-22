@@ -1,7 +1,7 @@
 # Privacy Policy / 隐私政策
 
 **Tab-Tab Browser Extension**
-Last updated: April 20, 2026 / 最后更新：2026 年 4 月 20 日
+Last updated: April 22, 2026 / 最后更新：2026 年 4 月 22 日
 
 ---
 
@@ -9,7 +9,7 @@ Last updated: April 20, 2026 / 最后更新：2026 年 4 月 20 日
 
 ### Overview
 
-Tab-Tab is a Chrome new tab extension that helps you manage open browser tabs. We are committed to protecting your privacy. This policy explains what data the extension accesses, how it is used, and what is never collected.
+Tab-Tab is a browser new tab extension that helps you manage open browser tabs. We are committed to protecting your privacy. This policy explains what data the extension accesses, how it is used, and what is never collected.
 
 ### Data We Access
 
@@ -38,7 +38,7 @@ The weather widget is optional. If you do not grant location permission, no data
 
 ### Local Storage
 
-All extension data (saved tabs, notes, tasks, settings, sort order, statistics) is stored exclusively in your browser's local storage via the Chrome `storage.local` API. This data never leaves your device.
+All extension data (saved tabs, notes, tasks, settings, sort order, statistics) is stored exclusively in your browser's local storage via the `storage.local` API. This data never leaves your device.
 
 ### Permissions Explained
 
@@ -47,6 +47,7 @@ All extension data (saved tabs, notes, tasks, settings, sort order, statistics) 
 | `tabs` | Read open tab URLs and titles to display and manage them |
 | `activeTab` | Interact with the currently active tab |
 | `storage` | Save your settings and data locally in the browser |
+| `search` | Trigger a search using your browser's default search engine when you press Enter in the search bar (store version only) |
 
 ### Changes to This Policy
 
@@ -63,7 +64,7 @@ If you have questions about this privacy policy, please open an issue on GitHub:
 
 ### 概述
 
-Tab-Tab 是一款 Chrome 新标签页扩展，帮助你管理打开的浏览器标签页。我们承诺保护你的隐私。本政策说明扩展访问哪些数据、如何使用，以及哪些数据绝不会被收集。
+Tab-Tab 是一款浏览器新标签页扩展，帮助你管理打开的浏览器标签页。我们承诺保护你的隐私。本政策说明扩展访问哪些数据、如何使用，以及哪些数据绝不会被收集。
 
 ### 我们访问的数据
 
@@ -92,7 +93,7 @@ Tab-Tab 仅使用一个外部 API：
 
 ### 本地存储
 
-所有扩展数据（已保存标签页、备注、任务、设置、排列顺序、统计数据）均通过 Chrome `storage.local` API 独家存储在你的浏览器本地，数据永远不会离开你的设备。
+所有扩展数据（已保存标签页、备注、任务、设置、排列顺序、统计数据）均通过 `storage.local` API 独家存储在你的浏览器本地，数据永远不会离开你的设备。
 
 ### 权限说明
 
@@ -101,6 +102,7 @@ Tab-Tab 仅使用一个外部 API：
 | `tabs` | 读取已打开标签页的 URL 和标题，用于展示和管理 |
 | `activeTab` | 与当前活动标签页交互 |
 | `storage` | 在浏览器本地保存你的设置和数据 |
+| `search` | 在搜索框按下回车时，使用浏览器默认搜索引擎发起搜索（仅商店版） |
 
 ### 政策变更
 

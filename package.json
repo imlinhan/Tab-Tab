@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "tsc && vite build",
-    "pack": "npm run build && cd dist && zip -r ../tab-tab.zip . --exclude '*.DS_Store' --exclude '*.svg' && cd .."
+    "build:store": "tsc && vite build --config vite.config.store.ts",
+    "pack": "npm run build && cd dist && zip -r ../tab-tab.zip . --exclude '*.DS_Store' --exclude '*.svg' && cd ..",
+    "pack:store": "npm run build:store && cd dist && zip -r ../tab-tab-store.zip . --exclude '*.DS_Store' --exclude '*.svg' --exclude 'manifest.store.json' && cd .."
   },
   "devDependencies": {
     "@types/chrome": "^0.0.287",

@@ -1,55 +1,178 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1a1a2e"/>
-      <stop offset="100%" stop-color="#16213e"/>
+
+    <!-- Background: pure near-black -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#0a0a0a"/>
+      <stop offset="50%"  stop-color="#111111"/>
+      <stop offset="100%" stop-color="#080808"/>
     </linearGradient>
-    <linearGradient id="tab1g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7c6ff7"/>
-      <stop offset="100%" stop-color="#5b8af7"/>
+
+    <!-- Bloom spots (subtle, dark) -->
+    <radialGradient id="bloom1" cx="30%" cy="30%" r="55%">
+      <stop offset="0%"   stop-color="#5b21b6" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#5b21b6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bloom2" cx="72%" cy="68%" r="45%">
+      <stop offset="0%"   stop-color="#3730a3" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#3730a3" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Back card: dark translucent glass -->
+    <linearGradient id="glassBack" x1="0" y1="0" x2="0.1" y2="1">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.04"/>
     </linearGradient>
-    <linearGradient id="tab2g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#a78bfa"/>
-      <stop offset="100%" stop-color="#818cf8"/>
+
+    <!-- Front card: dark glass -->
+    <linearGradient id="glassFront" x1="0" y1="0" x2="0.1" y2="1">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.05"/>
     </linearGradient>
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="2.5" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+
+    <!-- Tab strip: deep purple -->
+    <linearGradient id="strip" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#4c1d95"/>
+      <stop offset="100%" stop-color="#4338ca"/>
+    </linearGradient>
+
+    <!-- Specular: centred top, uniform oval, no corner bias -->
+    <radialGradient id="spec" cx="50%" cy="0%" r="70%" fx="50%" fy="0%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="50%"  stop-color="#ffffff" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Inner shadow (depth at bottom) -->
+    <linearGradient id="innerShadow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.30"/>
+    </linearGradient>
+
+    <!-- Pill shine -->
+    <linearGradient id="pillShine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.05"/>
+    </linearGradient>
+
+    <!-- Bottom frost gradient (behind text) -->
+    <linearGradient id="bottomFrost" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </linearGradient>
+
+    <!-- Top ambient light -->
+    <linearGradient id="topLight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Left ambient light -->
+    <linearGradient id="leftLight" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="outerShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8"  flood-color="#000000" flood-opacity="0.70"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.40"/>
     </filter>
-    <clipPath id="round">
-      <rect width="128" height="128" rx="28" ry="28"/>
+    <filter id="cardGlow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#4338ca" flood-opacity="0.40"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000000" flood-opacity="0.30"/>
+    </filter>
+    <filter id="backCardFilter" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="1" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.50"/>
+    </filter>
+    <filter id="blurBloom">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+
+    <!-- Single clip: everything stays inside rounded rect, corners are transparent -->
+    <clipPath id="appClip">
+      <rect width="128" height="128" rx="28"/>
     </clipPath>
+    <clipPath id="frontCardClip">
+      <rect x="18" y="30" width="66" height="60" rx="11"/>
+    </clipPath>
+
   </defs>
 
-  <!-- Background -->
-  <rect width="128" height="128" rx="28" ry="28" fill="url(#bg)"/>
+  <!-- All content clipped to rounded rect — outside is transparent -->
+  <g clip-path="url(#appClip)">
 
-  <!-- Subtle grid dots -->
-  <g opacity="0.07" fill="#ffffff">
-    <circle cx="24" cy="24" r="1.2"/><circle cx="44" cy="24" r="1.2"/><circle cx="64" cy="24" r="1.2"/><circle cx="84" cy="24" r="1.2"/><circle cx="104" cy="24" r="1.2"/>
-    <circle cx="24" cy="44" r="1.2"/><circle cx="44" cy="44" r="1.2"/><circle cx="64" cy="44" r="1.2"/><circle cx="84" cy="44" r="1.2"/><circle cx="104" cy="44" r="1.2"/>
-    <circle cx="24" cy="64" r="1.2"/><circle cx="44" cy="64" r="1.2"/><circle cx="64" cy="64" r="1.2"/><circle cx="84" cy="64" r="1.2"/><circle cx="104" cy="64" r="1.2"/>
-    <circle cx="24" cy="84" r="1.2"/><circle cx="44" cy="84" r="1.2"/><circle cx="64" cy="84" r="1.2"/><circle cx="84" cy="84" r="1.2"/><circle cx="104" cy="84" r="1.2"/>
-    <circle cx="24" cy="104" r="1.2"/><circle cx="44" cy="104" r="1.2"/><circle cx="64" cy="104" r="1.2"/><circle cx="84" cy="104" r="1.2"/><circle cx="104" cy="104" r="1.2"/>
+    <!-- Background -->
+    <rect width="128" height="128" fill="url(#bgGrad)"/>
+
+    <!-- Bloom (blurred colour, clipped inside) -->
+    <rect width="128" height="128" fill="url(#bloom1)" filter="url(#blurBloom)"/>
+    <rect width="128" height="128" fill="url(#bloom2)" filter="url(#blurBloom)"/>
+
+    <!-- ── Back card (rotated +9°) ── -->
+    <g transform="rotate(9, 66, 60)" filter="url(#backCardFilter)">
+      <rect x="33" y="34" width="66" height="58" rx="11" fill="url(#glassBack)"/>
+      <rect x="33" y="34" width="66" height="58" rx="11"
+            fill="none" stroke="white" stroke-opacity="0.15" stroke-width="0.8"/>
+    </g>
+
+    <!-- ── Front card ── -->
+    <g filter="url(#cardGlow)">
+      <!-- body -->
+      <rect x="18" y="30" width="66" height="60" rx="11" fill="url(#glassFront)"/>
+
+      <!-- tab strip -->
+      <rect x="18" y="30" width="66" height="16" rx="11" fill="url(#strip)"/>
+      <rect x="18" y="36"  width="66" height="10" fill="url(#strip)"/>
+
+      <!-- strip top shine -->
+      <rect x="18" y="30" width="66" height="9" rx="11" fill="url(#pillShine)"/>
+
+      <!-- tab pills -->
+      <rect x="25" y="33.5" width="20" height="6" rx="3"
+            fill="white" fill-opacity="0.30"/>
+      <rect x="49" y="33.5" width="15" height="6" rx="3"
+            fill="white" fill-opacity="0.14"/>
+
+      <!-- smiley face -->
+      <circle cx="44" cy="62" r="2.8" fill="white" fill-opacity="0.75"/>
+      <circle cx="58" cy="62" r="2.8" fill="white" fill-opacity="0.75"/>
+      <path d="M 42,71 Q 51,80 60,71"
+            fill="none" stroke="white" stroke-opacity="0.75"
+            stroke-width="2.5" stroke-linecap="round"/>
+
+      <!-- inner bottom shadow -->
+      <rect x="18" y="30" width="66" height="60" rx="11" fill="url(#innerShadow)"/>
+
+      <!-- border -->
+      <rect x="18" y="30" width="66" height="60" rx="11"
+            fill="none" stroke="white" stroke-opacity="0.28" stroke-width="0.8"/>
+
+      <!-- Specular: centred oval on top half of card (no corner bias) -->
+      <ellipse cx="51" cy="34" rx="22" ry="10" fill="url(#spec)"
+               clip-path="url(#frontCardClip)"/>
+    </g>
+
+    <!-- Top edge light band -->
+    <rect x="0" y="0" width="128" height="40"
+          fill="url(#topLight)" fill-opacity="1"/>
+    <!-- Left edge light band -->
+    <rect x="0" y="0" width="40" height="128"
+          fill="url(#leftLight)" fill-opacity="1"/>
+
+    <!-- Bottom frosted blur band -->
+    <rect x="0" y="88" width="128" height="40" fill="url(#bottomFrost)"/>
+
+    <!-- Product name -->
+    <text x="64" y="113"
+          font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif"
+          font-size="15.5" font-weight="700" letter-spacing="0.6"
+          text-anchor="middle" fill="white" fill-opacity="0.90">TabTab</text>
+
+    <!-- Border stroke -->
+    <rect width="128" height="128" rx="28"
+          fill="none"
+          stroke="white" stroke-opacity="0.55" stroke-width="1.2"/>
+
   </g>
-
-  <!-- Back tab (shifted right + down slightly) -->
-  <g filter="url(#glow)" opacity="0.85">
-    <rect x="38" y="44" width="62" height="42" rx="8" ry="8" fill="url(#tab2g)" opacity="0.5"/>
-    <rect x="38" y="36" width="28" height="12" rx="6" ry="6" fill="url(#tab2g)" opacity="0.5"/>
-  </g>
-
-  <!-- Front tab -->
-  <g filter="url(#glow)">
-    <rect x="22" y="52" width="62" height="42" rx="8" ry="8" fill="url(#tab1g)"/>
-    <rect x="22" y="44" width="28" height="12" rx="6" ry="6" fill="url(#tab1g)"/>
-  </g>
-
-  <!-- Content lines on front tab -->
-  <rect x="30" y="65" width="36" height="3" rx="1.5" fill="white" opacity="0.6"/>
-  <rect x="30" y="74" width="26" height="3" rx="1.5" fill="white" opacity="0.35"/>
-  <rect x="30" y="83" width="30" height="3" rx="1.5" fill="white" opacity="0.25"/>
-
-  <!-- Small close dot on tab bar -->
-  <circle cx="44" cy="50" r="2.5" fill="white" opacity="0.7"/>
 </svg>

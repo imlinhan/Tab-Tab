@@ -1,3 +1,12 @@
+chrome.runtime.onMessage.addListener((msg, sender) => {
+  if (msg.type === 'SEARCH' && msg.query) {
+    const tabId = sender.tab?.id;
+    if (tabId !== undefined) {
+      chrome.search.query({ text: msg.query, tabId }, () => {});
+    }
+  }
+});
+
 async function updateBadge(): Promise<void> {
   try {
     const tabs = await chrome.tabs.query({});

@@ -8,6 +8,7 @@
   "greeting_evening":            { "message": "Good evening" },
 
   "search_placeholder":          { "message": "Search with $ENGINE$...", "placeholders": { "engine": { "content": "$1" } } },
+  "store_search_placeholder":    { "message": "Search..." },
 
   "section_open_tabs":           { "message": "Open tabs" },
   "section_saved_later":         { "message": "Saved for later" },

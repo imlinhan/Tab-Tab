@@ -5,3 +5,4 @@ docs/
 *.local
 .claude/
 .superpowers/
+*.zip

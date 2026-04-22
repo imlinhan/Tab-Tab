@@ -1,5 +1,7 @@
 import { t } from './i18n';
 
+const STORE_BUILD = import.meta.env.VITE_STORE_BUILD === 'true';
+
 interface SearchEngine {
   name: string;
   url: string;
@@ -32,6 +34,29 @@ const ENGINES: SearchEngine[] = [
 let currentEngineIndex = 0;
 
 export async function initSearch(): Promise<void> {
+  const input = document.getElementById('searchInput') as HTMLInputElement | null;
+  const engineBtn = document.getElementById('searchEngine');
+
+  if (STORE_BUILD) {
+    if (engineBtn) {
+      engineBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
+      engineBtn.title = 'Your default search engine';
+      engineBtn.style.cursor = 'default';
+    }
+    if (input) {
+      input.placeholder = t('store_search_placeholder');
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const query = input.value.trim();
+          if (query) {
+            chrome.runtime.sendMessage({ type: 'SEARCH', query });
+          }
+        }
+      });
+    }
+    return;
+  }
+
   try {
     const { searchEngine = 'Google' } = await chrome.storage.local.get('searchEngine');
     const idx = ENGINES.findIndex((e) => e.name === searchEngine);
@@ -39,9 +64,6 @@ export async function initSearch(): Promise<void> {
   } catch {
     /* default to Google */
   }
-
-  const input = document.getElementById('searchInput') as HTMLInputElement | null;
-  const engineBtn = document.getElementById('searchEngine');
 
   if (engineBtn) {
     engineBtn.innerHTML = ENGINES[currentEngineIndex].icon;

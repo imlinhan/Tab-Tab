@@ -8,6 +8,7 @@
   "greeting_evening":            { "message": "晚上好" },
 
   "search_placeholder":          { "message": "用 $ENGINE$ 搜索...", "placeholders": { "engine": { "content": "$1" } } },
+  "store_search_placeholder":    { "message": "搜索..." },
 
   "section_open_tabs":           { "message": "打开的标签页" },
   "section_saved_later":         { "message": "稍后阅读" },
