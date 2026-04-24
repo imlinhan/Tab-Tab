@@ -2387,3 +2387,203 @@ footer { animation: fadeUp var(--dur-slow) var(--ease) 0.5s both; }
   letter-spacing: 1px;
   font-size: 10px !important;
 }
+
+/* ============================================================
+   Mercedes-Benz Edition — Visual Enhancements
+   ============================================================ */
+
+/* ── K: Skin switch fade transition ── */
+html {
+  transition: opacity 0.18s ease;
+}
+html.skin-switching {
+  opacity: 0;
+}
+
+/* ══════════════
+   A: mb-star — Metallic card gradient
+══════════════ */
+[data-skin="mb-star"] .card-grid .mission-card {
+  background: linear-gradient(
+    160deg,
+    rgba(255,255,255,0.065) 0%,
+    rgba(255,255,255,0.028) 40%,
+    rgba(0,0,0,0.10) 100%
+  ) !important;
+  border-top: 1px solid rgba(255,255,255,0.14) !important;
+  border-left: 1px solid rgba(255,255,255,0.10) !important;
+  border-right: 1px solid rgba(255,255,255,0.04) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.03) !important;
+}
+
+/* B: Rotating star watermark */
+[data-skin="mb-star"] body::after {
+  animation: starRotate 60s linear infinite, starBreath 6s ease-in-out infinite;
+}
+@keyframes starRotate {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+@keyframes starBreath {
+  0%, 100% { opacity: 0.020; }
+  50%       { opacity: 0.038; }
+}
+
+/* C: Search focus silver pulse */
+[data-skin="mb-star"] .search-bar.glass-card {
+  border-bottom: 1px solid rgba(200,200,200,0.20) !important;
+  transition: border-color 0.4s ease;
+  position: relative;
+}
+[data-skin="mb-star"] .search-bar.glass-card::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 50%; right: 50%;
+  height: 1px;
+  background: #ffffff;
+  transition: left 0.4s ease, right 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+[data-skin="mb-star"] .search-bar.glass-card:focus-within::after {
+  left: 10%;
+  right: 10%;
+  opacity: 1;
+  animation: silverPulse 1.2s ease forwards;
+}
+@keyframes silverPulse {
+  0%   { opacity: 0; left: 50%; right: 50%; }
+  30%  { opacity: 1; left: 10%; right: 10%; }
+  70%  { opacity: 1; }
+  100% { opacity: 0.35; }
+}
+
+/* ══════════════
+   D: mb-purity — Gold sweep on hover
+══════════════ */
+[data-skin="mb-purity"] .card-grid .mission-card {
+  overflow: hidden;
+}
+[data-skin="mb-purity"] .card-grid .mission-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; bottom: 0;
+  width: 50%;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(197,160,40,0.12) 50%,
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: none;
+}
+[data-skin="mb-purity"] .card-grid .mission-card.card-hovered::after {
+  animation: goldSweep 0.55s ease forwards;
+}
+@keyframes goldSweep {
+  from { left: -100%; opacity: 1; }
+  to   { left: 160%;  opacity: 0; }
+}
+
+/* E: mb-purity — Gold caret + italic placeholder */
+[data-skin="mb-purity"] .search-input {
+  caret-color: #c5a028;
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+[data-skin="mb-purity"] .search-input::placeholder {
+  color: rgba(197,160,40,0.30);
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+/* F: mb-purity — Serif card titles via @font-face fallback */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap');
+
+[data-skin="mb-purity"] .card-name {
+  font-family: 'Cormorant Garamond', 'Georgia', serif !important;
+  font-weight: 300 !important;
+  font-style: italic !important;
+  font-size: 1.05em;
+  letter-spacing: 0.8px;
+}
+
+/* ══════════════
+   G: mb-amg — Red noise overlay
+══════════════ */
+[data-skin="mb-amg"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+  opacity: 0.6;
+}
+
+/* H: mb-amg — Card slide-in entrance */
+[data-skin="mb-amg"] .card-grid .mission-card {
+  animation: amgSlideIn var(--dur-slow, 0.35s) var(--ease, cubic-bezier(.4,0,.2,1)) both;
+}
+@keyframes amgSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    clip-path: inset(0 0% 0 0);
+  }
+}
+
+/* I: mb-amg — Tabular bold red counters */
+[data-skin="mb-amg"] .badge,
+[data-skin="mb-amg"] .section-count,
+[data-skin="mb-amg"] .card-tab-count {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #cc0000 !important;
+  background: rgba(204,0,0,0.10) !important;
+  border-color: rgba(204,0,0,0.20) !important;
+}
+
+/* ══════════════
+   J: Settings skin buttons — colour dot previews
+══════════════ */
+[data-action="set-skin"][data-value="mb-star"]::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #b0b0b0;
+  margin-right: 5px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+[data-action="set-skin"][data-value="mb-purity"]::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #c5a028;
+  margin-right: 5px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+[data-action="set-skin"][data-value="mb-amg"]::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #cc0000;
+  margin-right: 5px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}

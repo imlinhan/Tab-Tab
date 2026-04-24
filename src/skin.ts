@@ -8,7 +8,12 @@ export function getSkin(): SkinName {
 
 export function setSkin(name: SkinName): void {
   currentSkin = name;
-  document.documentElement.setAttribute('data-skin', name);
+  const html = document.documentElement;
+  html.classList.add('skin-switching');
+  setTimeout(() => {
+    html.setAttribute('data-skin', name);
+    html.classList.remove('skin-switching');
+  }, 180);
   chrome.storage.local.set({ skin: name }).catch(() => {});
 }
 
