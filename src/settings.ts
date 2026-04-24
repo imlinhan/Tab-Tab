@@ -21,11 +21,11 @@ function renderWallpaperHint(): string {
     .join('');
 
   return `
-    <div class="wallpaper-hint">
-      <div class="wallpaper-hint-label">${t('settings_wallpaper_hint_label', osLabel)}</div>
+    <details class="wallpaper-hint">
+      <summary class="wallpaper-hint-summary">${t('settings_wallpaper_hint_label', osLabel)}</summary>
       <ul class="wallpaper-hint-paths">${pathItems}</ul>
       <div class="wallpaper-hint-tip">${t('settings_wallpaper_hint_tip')}</div>
-    </div>`;
+    </details>`;
 }
 
 function renderBody(): void {
@@ -117,13 +117,11 @@ function renderBody(): void {
         <svg width="14" height="14" viewBox="0 0 100 100" style="display:inline-block;vertical-align:middle;margin-right:6px;opacity:0.9"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="7"/><path d="M50,7 L56,50 L44,50 Z" fill="currentColor"/><path d="M87.239,71.5 L47,55.196 L53,44.804 Z" fill="currentColor"/><path d="M12.761,71.5 L47,44.804 L53,55.196 Z" fill="currentColor"/></svg>
         ${t('settings_mb_title')}
       </div>
-      <div class="settings-row">
-        <span class="settings-row-label">${t('settings_mb_style')}</span>
-        <div class="settings-btn-group">
-          ${skinBtn('mb-star', t('settings_mb_star'))}
-          ${skinBtn('mb-purity', t('settings_mb_purity'))}
-          ${skinBtn('mb-amg', t('settings_mb_amg'))}
-        </div>
+      <div class="settings-mb-style-label">${t('settings_mb_style')}</div>
+      <div class="settings-mb-skin-grid">
+        ${skinBtn('mb-star', t('settings_mb_star'))}
+        ${skinBtn('mb-purity', t('settings_mb_purity'))}
+        ${skinBtn('mb-amg', t('settings_mb_amg'))}
       </div>
     </div>
 
