@@ -1,4 +1,4 @@
-export type SkinName = 'minimal' | 'glass' | 'material';
+export type SkinName = 'minimal' | 'glass' | 'material' | 'mb-star' | 'mb-purity' | 'mb-amg';
 
 let currentSkin: SkinName = 'glass';
 

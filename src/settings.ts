@@ -93,6 +93,21 @@ function renderBody(): void {
       </div>
     </div>
 
+    <div class="settings-section settings-section-mb">
+      <div class="settings-section-title settings-section-title-mb">
+        <svg width="14" height="14" viewBox="0 0 100 100" style="display:inline-block;vertical-align:middle;margin-right:6px;opacity:0.9"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="7"/><path d="M50,7 L56,50 L44,50 Z" fill="currentColor"/><path d="M87.239,71.5 L47,55.196 L53,44.804 Z" fill="currentColor"/><path d="M12.761,71.5 L47,44.804 L53,55.196 Z" fill="currentColor"/></svg>
+        ${t('settings_mb_title')}
+      </div>
+      <div class="settings-row">
+        <span class="settings-row-label">${t('settings_mb_style')}</span>
+        <div class="settings-btn-group">
+          ${skinBtn('mb-star', t('settings_mb_star'))}
+          ${skinBtn('mb-purity', t('settings_mb_purity'))}
+          ${skinBtn('mb-amg', t('settings_mb_amg'))}
+        </div>
+      </div>
+    </div>
+
     <div class="settings-section">
       <div class="settings-section-title">${t('settings_background')}</div>
       <div class="settings-row">

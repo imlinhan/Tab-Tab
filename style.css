@@ -2093,3 +2093,297 @@ footer { animation: fadeUp var(--dur-slow) var(--ease) 0.5s both; }
   margin-top: 0;
   margin-bottom: 0;
 }
+
+/* ============================================================
+   Mercedes-Benz Edition Skins
+   ============================================================ */
+
+/* ── Shared MB base ── */
+[data-skin="mb-star"],
+[data-skin="mb-purity"],
+[data-skin="mb-amg"] {
+  --card-radius: 10px;
+  --card-backdrop: none;
+  --card-hover-transform: none;
+  --heading-weight: 400;
+  --search-backdrop: none;
+  --search-radius: 6px;
+}
+
+/* ══════════════════════════════════════════
+   MB-STAR — Three-pointed Star
+   Deep black · Silver · Heritage
+══════════════════════════════════════════ */
+[data-skin="mb-star"] {
+  --bg-start: #0a0a0a;
+  --bg-end:   #0f0f0f;
+  --text:           #d4d4d4;
+  --text-muted:     #5a5a5a;
+  --accent:         #b0b0b0;
+  --accent-light:   #d0d0d0;
+  --glass-bg:       rgba(255,255,255,0.04);
+  --glass-border:   rgba(200,200,200,0.14);
+  --glass-shadow:   rgba(0,0,0,0.5);
+  --glass-hover-bg: rgba(255,255,255,0.07);
+  --card-bg:        rgba(255,255,255,0.04);
+  --card-border:    1px solid rgba(200,200,200,0.14);
+  --card-shadow:    0 2px 16px rgba(0,0,0,0.5);
+  --card-hover-shadow: 0 6px 28px rgba(0,0,0,0.7);
+  --card-hover-gradient: linear-gradient(135deg, rgba(180,180,180,0.06) 0%, transparent 60%);
+  --search-bg:      rgba(255,255,255,0.03);
+  --search-border:  1px solid rgba(200,200,200,0.12);
+  --badge-bg:       rgba(200,200,200,0.08);
+  --badge-color:    #b0b0b0;
+  --btn-bg:         rgba(255,255,255,0.04);
+  --btn-border:     rgba(200,200,200,0.12);
+  --btn-close-bg:   rgba(200,200,200,0.06);
+  --btn-close-color:#999;
+  --btn-close-border: rgba(200,200,200,0.15);
+  --card-divider:   rgba(255,255,255,0.06);
+  --input-bg:       rgba(255,255,255,0.04);
+  --input-border:   rgba(200,200,200,0.12);
+}
+
+/* Star watermark on page background */
+[data-skin="mb-star"] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='none' stroke='%23ffffff' stroke-width='3.5'/%3E%3Cpath d='M50,7 L56,50 L44,50 Z' fill='%23ffffff'/%3E%3Cpath d='M87.239,71.5 L47,55.196 L53,44.804 Z' fill='%23ffffff'/%3E%3Cpath d='M12.761,71.5 L47,44.804 L53,55.196 Z' fill='%23ffffff'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 380px 380px;
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-skin="mb-star"] .card-name {
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+[data-skin="mb-star"] .card-grid .mission-card {
+  background: var(--card-bg);
+  border: var(--card-border);
+  box-shadow: var(--card-shadow);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+[data-skin="mb-star"] .card-grid .mission-card.card-hovered {
+  background: rgba(255,255,255,0.07);
+  box-shadow: var(--card-hover-shadow);
+  filter: none;
+  transform: none;
+}
+
+/* Metallic shimmer on hover */
+[data-skin="mb-star"] .card-grid .mission-card.card-hovered::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.04) 50%, transparent 70%);
+  pointer-events: none;
+}
+
+[data-skin="mb-star"] .search-bar.glass-card {
+  background: var(--search-bg);
+  border: var(--search-border);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-skin="mb-star"] #settingsPanel {
+  background: #0c0c0c;
+  border-left: 1px solid rgba(200,200,200,0.10);
+}
+
+/* ══════════════════════════════════════════
+   MB-PURITY — Sensual Purity
+   Pure black · Champagne gold · Editorial
+══════════════════════════════════════════ */
+[data-skin="mb-purity"] {
+  --bg-start: #000000;
+  --bg-end:   #050503;
+  --text:           #c8b97a;
+  --text-muted:     #4a4230;
+  --accent:         #c5a028;
+  --accent-light:   #d4b84a;
+  --glass-bg:       rgba(197,160,40,0.04);
+  --glass-border:   rgba(197,160,40,0.18);
+  --glass-shadow:   rgba(0,0,0,0.6);
+  --glass-hover-bg: rgba(197,160,40,0.07);
+  --card-bg:        rgba(197,160,40,0.03);
+  --card-border:    1px solid rgba(197,160,40,0.15);
+  --card-shadow:    0 2px 20px rgba(0,0,0,0.6);
+  --card-hover-shadow: 0 6px 32px rgba(0,0,0,0.8), 0 0 12px rgba(197,160,40,0.08);
+  --card-hover-gradient: linear-gradient(135deg, rgba(197,160,40,0.06) 0%, transparent 60%);
+  --search-bg:      transparent;
+  --search-border:  1px solid rgba(197,160,40,0.20);
+  --badge-bg:       rgba(197,160,40,0.10);
+  --badge-color:    #c5a028;
+  --btn-bg:         rgba(197,160,40,0.05);
+  --btn-border:     rgba(197,160,40,0.15);
+  --btn-close-bg:   rgba(197,160,40,0.06);
+  --btn-close-color:#c5a028;
+  --btn-close-border: rgba(197,160,40,0.18);
+  --card-divider:   rgba(197,160,40,0.08);
+  --input-bg:       rgba(197,160,40,0.04);
+  --input-border:   rgba(197,160,40,0.15);
+  --heading-weight: 300;
+}
+
+[data-skin="mb-purity"] .card-grid .mission-card {
+  background: var(--card-bg);
+  border: var(--card-border);
+  border-left: 2px solid rgba(197,160,40,0.35);
+  border-radius: 3px 8px 8px 3px;
+  box-shadow: var(--card-shadow);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+[data-skin="mb-purity"] .card-grid .mission-card.card-hovered {
+  background: var(--glass-hover-bg);
+  box-shadow: var(--card-hover-shadow);
+  border-left-color: rgba(197,160,40,0.7);
+  filter: none;
+  transform: none;
+}
+
+[data-skin="mb-purity"] .card-name {
+  font-weight: 300;
+  letter-spacing: 1px;
+  font-style: italic;
+}
+
+[data-skin="mb-purity"] .search-bar.glass-card {
+  background: var(--search-bg);
+  border: var(--search-border);
+  border-bottom-color: #c5a028;
+  border-radius: 3px 3px 0 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-skin="mb-purity"] .header-main h1 {
+  font-weight: 300;
+  letter-spacing: 4px;
+  color: #c5a028;
+}
+
+[data-skin="mb-purity"] #settingsPanel {
+  background: #030301;
+  border-left: 1px solid rgba(197,160,40,0.15);
+}
+
+/* ══════════════════════════════════════════
+   MB-AMG — AMG Sport
+   Carbon black · Racing red · Performance
+══════════════════════════════════════════ */
+[data-skin="mb-amg"] {
+  --bg-start: #0e0e0e;
+  --bg-end:   #111111;
+  --text:           #e0e0e0;
+  --text-muted:     #444;
+  --accent:         #cc0000;
+  --accent-light:   #e03030;
+  --glass-bg:       rgba(255,255,255,0.04);
+  --glass-border:   rgba(204,0,0,0.20);
+  --glass-shadow:   rgba(0,0,0,0.5);
+  --glass-hover-bg: rgba(204,0,0,0.06);
+  --card-bg:        rgba(20,18,18,0.95);
+  --card-border:    1px solid #1e1e1e;
+  --card-shadow:    0 2px 16px rgba(0,0,0,0.6);
+  --card-hover-shadow: 0 6px 28px rgba(0,0,0,0.8), 0 0 8px rgba(204,0,0,0.15);
+  --card-hover-gradient: linear-gradient(135deg, rgba(204,0,0,0.07) 0%, transparent 60%);
+  --search-bg:      rgba(20,18,18,0.9);
+  --search-border:  1px solid #1e1e1e;
+  --badge-bg:       rgba(204,0,0,0.10);
+  --badge-color:    #cc0000;
+  --btn-bg:         rgba(255,255,255,0.04);
+  --btn-border:     rgba(204,0,0,0.15);
+  --btn-close-bg:   rgba(204,0,0,0.10);
+  --btn-close-color:#cc0000;
+  --btn-close-border: rgba(204,0,0,0.25);
+  --card-divider:   rgba(204,0,0,0.08);
+  --input-bg:       rgba(20,18,18,0.9);
+  --input-border:   rgba(204,0,0,0.15);
+}
+
+/* Carbon fiber background texture */
+[data-skin="mb-amg"] body {
+  background-image:
+    repeating-linear-gradient(45deg,  rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 5px),
+    repeating-linear-gradient(-45deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 5px);
+}
+
+/* Red top bar accent */
+[data-skin="mb-amg"] .header-main::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #cc0000 30%, #cc0000 70%, transparent 100%);
+  z-index: 100;
+}
+
+[data-skin="mb-amg"] .card-grid .mission-card {
+  background: var(--card-bg);
+  border: var(--card-border);
+  border-left: 3px solid #cc0000;
+  border-radius: 3px 8px 8px 3px;
+  box-shadow: var(--card-shadow);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+[data-skin="mb-amg"] .card-grid .mission-card.card-hovered {
+  background: rgba(25,20,20,0.98);
+  box-shadow: var(--card-hover-shadow);
+  border-left-color: #ff1a1a;
+  filter: none;
+  transform: none;
+}
+
+[data-skin="mb-amg"] .card-name {
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.8em;
+}
+
+[data-skin="mb-amg"] .search-bar.glass-card {
+  background: var(--search-bg);
+  border: var(--search-border);
+  border-top: 2px solid #cc0000;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-skin="mb-amg"] .header-main h1 {
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+[data-skin="mb-amg"] #settingsPanel {
+  background: #0c0a0a;
+  border-left: 1px solid rgba(204,0,0,0.20);
+}
+
+/* ── Settings panel MB section styling ── */
+.settings-section-mb {
+  border: 1px solid rgba(180,160,100,0.12);
+  border-radius: 10px;
+  background: rgba(180,160,100,0.03);
+  padding: 14px 16px;
+}
+
+.settings-section-title-mb {
+  color: #9a8050 !important;
+  letter-spacing: 1px;
+  font-size: 10px !important;
+}
