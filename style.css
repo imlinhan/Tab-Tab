@@ -2377,6 +2377,56 @@ footer { animation: fadeUp var(--dur-slow) var(--ease) 0.5s both; }
 }
 
 /* ── Settings panel MB section styling ── */
+/* ---- Wallpaper path hint ---- */
+.wallpaper-hint {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.wallpaper-hint-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
+}
+
+.wallpaper-hint-paths {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.wallpaper-hint-path {
+  font-family: 'DM Mono', 'Menlo', 'Consolas', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  background: var(--badge-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 5px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: background var(--dur-fast), border-color var(--dur-fast);
+  word-break: break-all;
+  user-select: all;
+}
+
+.wallpaper-hint-path:hover {
+  background: var(--glass-hover-bg);
+  border-color: var(--accent);
+}
+
+.wallpaper-hint-tip {
+  font-size: 10px;
+  color: var(--text-muted);
+  opacity: 0.65;
+  line-height: 1.5;
+}
+
 .settings-section-mb {
   border: 1px solid rgba(180,160,100,0.12);
   border-radius: 10px;

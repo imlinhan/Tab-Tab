@@ -1,7 +1,7 @@
 import { type SkinName, getSkin, setSkin, isDarkOnlySkin } from './skin';
 import { type MotionLevel, getMotion, setMotion } from './motion';
 import { SCHEMES, getCurrentScheme, applyScheme } from './colorscheme';
-import { uploadWallpaper, clearWallpaper } from './wallpaper';
+import { uploadWallpaper, clearWallpaper, getOsWallpaperInfo } from './wallpaper';
 import { setMode, isFullMode } from './mode';
 import { type ThemeMode, getCurrentTheme, setTheme, updateThemeForSkinChange } from './theme';
 import { mergeAllWindows } from './windowmerge';
@@ -10,6 +10,23 @@ import { t } from './i18n';
 import { type LocalePref, getLocalePref, setLocale } from './locale';
 import { applyI18n } from './i18n';
 import { renderDashboard } from './render';
+
+function renderWallpaperHint(): string {
+  const info = getOsWallpaperInfo();
+  if (info.os === 'other') return '';
+
+  const osLabel = info.os === 'mac' ? 'macOS' : 'Windows';
+  const pathItems = info.paths
+    .map(p => `<li class="wallpaper-hint-path" data-action="copy-wallpaper-path" data-path="${p}" title="${t('settings_wallpaper_hint_copy')}">${p}</li>`)
+    .join('');
+
+  return `
+    <div class="wallpaper-hint">
+      <div class="wallpaper-hint-label">${t('settings_wallpaper_hint_label', osLabel)}</div>
+      <ul class="wallpaper-hint-paths">${pathItems}</ul>
+      <div class="wallpaper-hint-tip">${t('settings_wallpaper_hint_tip')}</div>
+    </div>`;
+}
 
 function renderBody(): void {
   const body = document.getElementById('settingsBody');
@@ -119,6 +136,7 @@ function renderBody(): void {
           <button data-action="clear-wallpaper">${t('settings_wallpaper_clear')}</button>
         </div>
       </div>
+      ${renderWallpaperHint()}
     </div>
 
     <div class="settings-section">
@@ -228,6 +246,13 @@ export function initSettings(): void {
       uploadWallpaper();
     } else if (action === 'clear-wallpaper') {
       clearWallpaper();
+    } else if (action === 'copy-wallpaper-path') {
+      const path = el.dataset.path ?? '';
+      navigator.clipboard.writeText(path).then(() => {
+        const prev = el.textContent;
+        el.textContent = t('settings_wallpaper_hint_copied');
+        setTimeout(() => { el.textContent = prev; }, 1500);
+      }).catch(() => {});
     } else if (action === 'merge-windows') {
       mergeAllWindows().catch(() => {});
     } else if (action === 'export-settings') {

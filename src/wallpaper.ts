@@ -2,6 +2,35 @@ import { initWallpaperOverlay } from './wallpaper-overlay';
 
 let wallpaperUrl = '';
 
+export type OsWallpaperInfo = {
+  os: 'mac' | 'windows' | 'other';
+  paths: string[];
+};
+
+export function getOsWallpaperInfo(): OsWallpaperInfo {
+  const ua = navigator.userAgent;
+  if (/Macintosh|Mac OS X/i.test(ua)) {
+    return {
+      os: 'mac',
+      paths: [
+        '~/Library/Application Support/com.apple.wallpaper/',
+        '/Library/Desktop Pictures/',
+      ],
+    };
+  }
+  if (/Windows/i.test(ua)) {
+    return {
+      os: 'windows',
+      paths: [
+        '%AppData%\\Microsoft\\Windows\\Themes\\CachedFiles\\',
+        'C:\\Windows\\Web\\Wallpaper\\',
+        '%LocalAppData%\\Microsoft\\Windows\\Themes\\',
+      ],
+    };
+  }
+  return { os: 'other', paths: [] };
+}
+
 function apply(): void {
   const bg = document.querySelector<HTMLElement>('.bg-gradient');
   if (!bg) return;
