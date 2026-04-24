@@ -1,5 +1,11 @@
 export type SkinName = 'minimal' | 'glass' | 'material' | 'mb-star' | 'mb-purity' | 'mb-amg';
 
+export const DARK_ONLY_SKINS = new Set<SkinName>(['mb-star', 'mb-purity', 'mb-amg']);
+
+export function isDarkOnlySkin(name?: SkinName): boolean {
+  return DARK_ONLY_SKINS.has(name ?? currentSkin);
+}
+
 let currentSkin: SkinName = 'glass';
 
 export function getSkin(): SkinName {

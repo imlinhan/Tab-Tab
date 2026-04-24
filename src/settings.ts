@@ -1,9 +1,9 @@
-import { type SkinName, getSkin, setSkin } from './skin';
+import { type SkinName, getSkin, setSkin, isDarkOnlySkin } from './skin';
 import { type MotionLevel, getMotion, setMotion } from './motion';
 import { SCHEMES, getCurrentScheme, applyScheme } from './colorscheme';
 import { uploadWallpaper, clearWallpaper } from './wallpaper';
 import { setMode, isFullMode } from './mode';
-import { type ThemeMode, getCurrentTheme, setTheme } from './theme';
+import { type ThemeMode, getCurrentTheme, setTheme, updateThemeForSkinChange } from './theme';
 import { mergeAllWindows } from './windowmerge';
 import { getBlur, setBlur, reapplyBlur } from './glassblur';
 import { t } from './i18n';
@@ -42,6 +42,8 @@ function renderBody(): void {
     `<button class="settings-color-dot${i === scheme ? ' active' : ''}" data-action="set-color" data-index="${i}" title="${s.name}" style="background:${s.accent}"></button>`
   ).join('');
 
+  const darkOnly = isDarkOnlySkin(skin);
+
   const blur = getBlur();
   const blurRow = skin === 'glass' ? `
       <div class="settings-row">
@@ -67,8 +69,8 @@ function renderBody(): void {
         <span class="settings-row-label">${t('settings_color')}</span>
         <div class="settings-colors">${colorDots}</div>
       </div>
-      <div class="settings-row">
-        <span class="settings-row-label">${t('settings_theme')}</span>
+      <div class="settings-row${darkOnly ? ' settings-row-disabled' : ''}">
+        <span class="settings-row-label">${t('settings_theme')}${darkOnly ? `<span class="settings-dark-only-badge">${t('settings_dark_only')}</span>` : ''}</span>
         <div class="settings-btn-group">
           ${themeBtn('system', t('settings_theme_system'))}
           ${themeBtn('light', t('settings_theme_light'))}
@@ -208,6 +210,7 @@ export function initSettings(): void {
     } else if (action === 'set-skin') {
       setSkin(el.dataset.value as SkinName);
       reapplyBlur();
+      updateThemeForSkinChange();
       renderBody();
     } else if (action === 'set-theme') {
       setTheme(el.dataset.value as ThemeMode);

@@ -1,3 +1,5 @@
+import { isDarkOnlySkin } from './skin';
+
 export type ThemeMode = 'system' | 'light' | 'dark';
 
 let currentMode: ThemeMode = 'system';
@@ -7,6 +9,10 @@ function getSystemTheme(): 'light' | 'dark' {
 }
 
 function applyTheme(mode: ThemeMode): void {
+  if (isDarkOnlySkin()) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    return;
+  }
   const resolved = mode === 'system' ? getSystemTheme() : mode;
   document.documentElement.setAttribute('data-theme', resolved);
 }
@@ -33,11 +39,12 @@ export async function initTheme(): Promise<void> {
   updateToggleIcon();
 
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    if (currentMode === 'system') applyTheme('system');
+    if (currentMode === 'system' && !isDarkOnlySkin()) applyTheme('system');
   });
 }
 
 export async function cycleTheme(): Promise<void> {
+  if (isDarkOnlySkin()) return;
   const order: ThemeMode[] = ['system', 'light', 'dark'];
   const idx = order.indexOf(currentMode);
   currentMode = order[(idx + 1) % order.length];
@@ -48,9 +55,21 @@ export async function cycleTheme(): Promise<void> {
   } catch {}
 }
 
+export function updateThemeForSkinChange(): void {
+  applyTheme(currentMode);
+  updateToggleIcon();
+}
+
 function updateToggleIcon(): void {
   const btn = document.getElementById('themeToggle');
   if (!btn) return;
+
+  if (isDarkOnlySkin()) {
+    btn.style.display = 'none';
+    return;
+  }
+
+  btn.style.display = '';
   const resolved = currentMode === 'system' ? getSystemTheme() : currentMode;
 
   const icons: Record<string, string> = {

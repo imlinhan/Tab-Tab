@@ -1644,6 +1644,25 @@ header {
   font-weight: 600;
 }
 
+.settings-row-disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.settings-dark-only-badge {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--text-muted);
+  vertical-align: middle;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
 /* Settings: color dots in panel */
 .settings-colors {
   display: flex;
@@ -2661,158 +2680,3 @@ html.skin-switching {
   z-index: 0;
 }
 
-/* ============================================================
-   Mercedes-Benz Skins — Light Mode Adaptations
-   ============================================================ */
-
-/* ── mb-star light ── */
-[data-skin="mb-star"][data-theme="light"],
-[data-theme="light"] [data-skin="mb-star"] {
-  --bg-start: #e8e8ec;
-  --bg-end:   #f0eff4;
-  --text:           #1a1a1a;
-  --text-muted:     #888;
-  --glass-bg:       rgba(0,0,0,0.04);
-  --glass-border:   rgba(0,0,0,0.10);
-  --glass-hover-bg: rgba(0,0,0,0.07);
-  --card-bg:        rgba(0,0,0,0.03);
-  --card-border:    1px solid rgba(0,0,0,0.09);
-  --card-shadow:    0 2px 16px rgba(0,0,0,0.08);
-  --card-hover-shadow: 0 6px 28px rgba(0,0,0,0.14);
-  --search-bg:      rgba(255,255,255,0.60);
-  --search-border:  1px solid rgba(0,0,0,0.10);
-  --badge-bg:       rgba(0,0,0,0.06);
-  --badge-color:    #444;
-  --btn-bg:         rgba(255,255,255,0.5);
-  --btn-border:     rgba(0,0,0,0.10);
-  --btn-close-bg:   rgba(200,0,0,0.06);
-  --btn-close-color:#b00;
-  --card-divider:   rgba(0,0,0,0.06);
-  --input-bg:       rgba(255,255,255,0.6);
-  --input-border:   rgba(0,0,0,0.10);
-}
-[data-skin="mb-star"][data-theme="light"] .card-grid .mission-card,
-[data-theme="light"] [data-skin="mb-star"] .card-grid .mission-card {
-  background: linear-gradient(
-    160deg,
-    rgba(255,255,255,0.80) 0%,
-    rgba(240,240,245,0.60) 100%
-  ) !important;
-  border-top: 1px solid rgba(255,255,255,0.90) !important;
-  border-left: 1px solid rgba(255,255,255,0.70) !important;
-  border-right: 1px solid rgba(0,0,0,0.06) !important;
-  border-bottom: 1px solid rgba(0,0,0,0.05) !important;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
-}
-[data-skin="mb-star"][data-theme="light"] body::after,
-[data-theme="light"] [data-skin="mb-star"] body::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='none' stroke='%23000000' stroke-width='3.5'/%3E%3Cpath d='M50,7 L56,50 L44,50 Z' fill='%23000000'/%3E%3Cpath d='M87.239,71.5 L47,55.196 L53,44.804 Z' fill='%23000000'/%3E%3Cpath d='M12.761,71.5 L47,44.804 L53,55.196 Z' fill='%23000000'/%3E%3C/svg%3E");
-  opacity: 0.04;
-}
-[data-skin="mb-star"][data-theme="light"] body::before,
-[data-theme="light"] [data-skin="mb-star"] body::before {
-  opacity: 0.12;
-  background-image:
-    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%228.0%22%20cy%3D%228.0%22%20r%3D%226.88%22%20fill%3D%22none%22%20stroke%3D%22%23333333%22%20stroke-width%3D%221.2%22%2F%3E%3Cpath%20d%3D%22M8.0%2C0.56%20L9.12%2C8.0%20L6.88%2C8.0%20Z%22%20fill%3D%22%23333333%22%2F%3E%3Cpath%20d%3D%22M14.44%2C11.72%20L7.44%2C8.97%20L8.56%2C7.03%20Z%22%20fill%3D%22%23333333%22%2F%3E%3Cpath%20d%3D%22M1.56%2C11.72%20L7.44%2C7.03%20L8.56%2C8.97%20Z%22%20fill%3D%22%23333333%22%2F%3E%3C%2Fsvg%3E"),
-    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2010%2010%22%3E%3Ccircle%20cx%3D%225.0%22%20cy%3D%225.0%22%20r%3D%224.3%22%20fill%3D%22none%22%20stroke%3D%22%23333333%22%20stroke-width%3D%220.9%22%2F%3E%3Cpath%20d%3D%22M5.0%2C0.35%20L5.7%2C5.0%20L4.3%2C5.0%20Z%22%20fill%3D%22%23333333%22%2F%3E%3Cpath%20d%3D%22M9.03%2C7.32%20L4.65%2C5.61%20L5.35%2C4.39%20Z%22%20fill%3D%22%23333333%22%2F%3E%3Cpath%20d%3D%22M0.97%2C7.32%20L4.65%2C4.39%20L5.35%2C5.61%20Z%22%20fill%3D%22%23333333%22%2F%3E%3C%2Fsvg%3E"),
-    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%208%208%22%3E%3Ccircle%20cx%3D%224.0%22%20cy%3D%224.0%22%20r%3D%223.44%22%20fill%3D%22none%22%20stroke%3D%22%23333333%22%20stroke-width%3D%220.7%22%2F%3E%3Cpath%20d%3D%22M4.0%2C0.28%20L4.56%2C4.0%20L3.44%2C4.0%20Z%22%20fill%3D%22%23333333%22%2F%3E%3Cpath%20d%3D%22M7.22%2C5.86%20L3.72%2C4.48%20L4.28%2C3.52%20Z%22%20fill%3D%22%23333333%22%2F%3E%3Cpath%20d%3D%22M0.78%2C5.86%20L3.72%2C3.52%20L4.28%2C4.48%20Z%22%20fill%3D%22%23333333%22%2F%3E%3C%2Fsvg%3E");
-}
-
-/* ── mb-purity light ── */
-[data-skin="mb-purity"][data-theme="light"],
-[data-theme="light"] [data-skin="mb-purity"] {
-  --bg-start: #f5f0e0;
-  --bg-end:   #faf7ec;
-  --text:           #2a2000;
-  --text-muted:     #8a7040;
-  --glass-bg:       rgba(197,160,40,0.06);
-  --glass-border:   rgba(197,160,40,0.25);
-  --glass-hover-bg: rgba(197,160,40,0.12);
-  --card-bg:        rgba(255,252,235,0.85);
-  --card-border:    1px solid rgba(197,160,40,0.22);
-  --card-shadow:    0 2px 16px rgba(180,140,0,0.10);
-  --card-hover-shadow: 0 6px 28px rgba(180,140,0,0.18), 0 0 12px rgba(197,160,40,0.12);
-  --search-bg:      rgba(255,252,235,0.80);
-  --search-border:  1px solid rgba(197,160,40,0.30);
-  --badge-bg:       rgba(197,160,40,0.12);
-  --badge-color:    #7a5c00;
-  --btn-bg:         rgba(255,252,235,0.70);
-  --btn-border:     rgba(197,160,40,0.20);
-  --btn-close-bg:   rgba(197,160,40,0.08);
-  --btn-close-color:#7a5c00;
-  --card-divider:   rgba(197,160,40,0.12);
-  --input-bg:       rgba(255,252,235,0.80);
-  --input-border:   rgba(197,160,40,0.22);
-}
-[data-skin="mb-purity"][data-theme="light"] .card-grid .mission-card,
-[data-theme="light"] [data-skin="mb-purity"] .card-grid .mission-card {
-  background: rgba(255,252,235,0.85) !important;
-  border-left-color: rgba(197,160,40,0.55) !important;
-  box-shadow: 0 2px 16px rgba(180,140,0,0.10) !important;
-}
-[data-skin="mb-purity"][data-theme="light"] .header-main h1,
-[data-theme="light"] [data-skin="mb-purity"] .header-main h1 {
-  color: #7a5c00;
-}
-[data-skin="mb-purity"][data-theme="light"] #settingsPanel,
-[data-theme="light"] [data-skin="mb-purity"] #settingsPanel {
-  background: #faf7ec;
-  border-left: 1px solid rgba(197,160,40,0.20);
-}
-
-/* ── mb-amg light ── */
-[data-skin="mb-amg"][data-theme="light"],
-[data-theme="light"] [data-skin="mb-amg"] {
-  --bg-start: #f0eeee;
-  --bg-end:   #f7f5f5;
-  --text:           #1a0000;
-  --text-muted:     #886060;
-  --glass-bg:       rgba(204,0,0,0.04);
-  --glass-border:   rgba(204,0,0,0.15);
-  --glass-hover-bg: rgba(204,0,0,0.08);
-  --card-bg:        rgba(255,253,253,0.90);
-  --card-border:    1px solid rgba(220,200,200,0.6);
-  --card-shadow:    0 2px 12px rgba(150,0,0,0.08);
-  --card-hover-shadow: 0 6px 24px rgba(150,0,0,0.14), 0 0 8px rgba(204,0,0,0.10);
-  --search-bg:      rgba(255,253,253,0.85);
-  --search-border:  1px solid rgba(204,0,0,0.15);
-  --badge-bg:       rgba(204,0,0,0.08);
-  --badge-color:    #990000;
-  --btn-bg:         rgba(255,253,253,0.80);
-  --btn-border:     rgba(204,0,0,0.12);
-  --btn-close-bg:   rgba(204,0,0,0.08);
-  --btn-close-color:#990000;
-  --card-divider:   rgba(204,0,0,0.06);
-  --input-bg:       rgba(255,253,253,0.85);
-  --input-border:   rgba(204,0,0,0.14);
-}
-[data-skin="mb-amg"][data-theme="light"] body,
-[data-theme="light"] [data-skin="mb-amg"] body {
-  background-image:
-    repeating-linear-gradient(45deg,  rgba(0,0,0,0.018) 0px, rgba(0,0,0,0.018) 1px, transparent 1px, transparent 5px),
-    repeating-linear-gradient(-45deg, rgba(0,0,0,0.018) 0px, rgba(0,0,0,0.018) 1px, transparent 1px, transparent 5px);
-}
-[data-skin="mb-amg"][data-theme="light"] .card-grid .mission-card,
-[data-theme="light"] [data-skin="mb-amg"] .card-grid .mission-card {
-  background: rgba(255,253,253,0.92) !important;
-  border-left-color: #cc0000 !important;
-  box-shadow: 0 2px 12px rgba(150,0,0,0.08) !important;
-}
-[data-skin="mb-amg"][data-theme="light"] .search-bar.glass-card,
-[data-theme="light"] [data-skin="mb-amg"] .search-bar.glass-card {
-  background: rgba(255,253,253,0.85) !important;
-  border-top-color: #cc0000 !important;
-}
-[data-skin="mb-amg"][data-theme="light"] .header-main h1,
-[data-theme="light"] [data-skin="mb-amg"] .header-main h1 {
-  color: #990000;
-}
-[data-skin="mb-amg"][data-theme="light"] #settingsPanel,
-[data-theme="light"] [data-skin="mb-amg"] #settingsPanel {
-  background: #f7f5f5;
-  border-left: 1px solid rgba(204,0,0,0.15);
-}
-[data-skin="mb-amg"][data-theme="light"] .bg-gradient::after,
-[data-theme="light"] [data-skin="mb-amg"] .bg-gradient::after {
-  opacity: 0.12;
-}
