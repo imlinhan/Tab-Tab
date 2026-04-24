@@ -2513,16 +2513,21 @@ html.skin-switching {
   to   { left: 160%;  opacity: 0; }
 }
 
-/* E: mb-purity — Gold caret + italic placeholder */
+/* E: mb-purity — Cormorant search input */
 [data-skin="mb-purity"] .search-input {
-  caret-color: #c5a028;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-weight: 300;
   font-style: italic;
-  letter-spacing: 0.5px;
+  font-size: 16px;
+  letter-spacing: 2px;
+  caret-color: #c5a028;
+  color: #c8b97a;
 }
 [data-skin="mb-purity"] .search-input::placeholder {
   color: rgba(197,160,40,0.30);
   font-style: italic;
-  letter-spacing: 1px;
+  letter-spacing: 3px;
+  font-size: 14px;
 }
 
 /* F: mb-purity — Serif card titles → see comprehensive section below */
@@ -2760,6 +2765,19 @@ html.skin-switching {
 }
 
 /* mb-star: search engine switcher button */
+/* mb-star: search input — DM Mono to match card typography */
+[data-skin="mb-star"] .search-input {
+  font-family: 'DM Mono', monospace;
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: #cccccc;
+}
+[data-skin="mb-star"] .search-input::placeholder {
+  color: rgba(200,200,200,0.22);
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
 [data-skin="mb-star"] .search-engine-btn {
   border-color: rgba(200,200,200,0.12);
   background: rgba(255,255,255,0.03);
@@ -2802,7 +2820,7 @@ html.skin-switching {
   font-family: 'DM Mono', monospace;
   font-size: 9px;
   letter-spacing: 0.5px;
-  color: #5a5a5a;
+  color: #aaaaaa;
 }
 [data-skin="mb-star"] .quick-link-letter {
   background: rgba(184,184,184,0.15);
@@ -2935,7 +2953,7 @@ html.skin-switching {
   font-style: italic;
   font-size: 10px;
   letter-spacing: 0.5px;
-  color: rgba(197,160,40,0.45);
+  color: #c8b97a;
 }
 [data-skin="mb-purity"] .quick-link-letter {
   background: rgba(197,160,40,0.12);
@@ -3093,7 +3111,7 @@ html.skin-switching {
   font-size: 9px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #555;
+  color: #bbbbbb;
 }
 [data-skin="mb-amg"] .quick-link-letter {
   background: rgba(204,0,0,0.15);
