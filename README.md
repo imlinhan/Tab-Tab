@@ -1,6 +1,9 @@
 # Tab-Tab
 
-A beautiful Chrome new tab extension that turns every new tab into a clean command center for your open tabs.
+A beautiful new tab extension that turns every new tab into a clean command center for your open tabs.
+
+[<img src="https://img.shields.io/badge/Chrome_Web_Store-v1.0.1-blue?logo=googlechrome&logoColor=white" alt="Chrome Web Store">](https://chromewebstore.google.com/detail/tab-tab/ollhojknojkmfnolgaalieciglbpkipn)
+[<img src="https://img.shields.io/badge/Edge_Add--ons-v1.0.1-blue?logo=microsoftedge&logoColor=white" alt="Edge Add-ons">](https://microsoftedge.microsoft.com/addons/detail/tabtab/bnnbopecacclmeglkfmehncbekakncep)
 
 ![Tab-Tab screenshot](screenshot/screenshot_1.png)
 
@@ -23,10 +26,15 @@ A beautiful Chrome new tab extension that turns every new tab into a clean comma
 
 ## Installation
 
-> No build step required — load the pre-built `dist/` folder directly.
+**From store:**
+
+- [Chrome Web Store](https://chromewebstore.google.com/detail/tab-tab/ollhojknojkmfnolgaalieciglbpkipn)
+- [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/tabtab/bnnbopecacclmeglkfmehncbekakncep)
+
+**Manual install:**
 
 1. Clone or download this repository
-2. Open Chrome and go to `chrome://extensions`
+2. Open Chrome/Edge and go to `chrome://extensions` or `edge://extensions`
 3. Enable **Developer mode** (top-right toggle)
 4. Click **Load unpacked** and select the `dist/` folder
 5. Open a new tab — Tab-Tab is now your new tab page
